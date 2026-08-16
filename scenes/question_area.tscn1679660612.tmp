@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://olin8fwvu4vl"]
+
+[ext_resource type="Script" uid="uid://dsuvdoo78oavk" path="res://scenes/question_area.gd" id="1_aa21a"]
+[ext_resource type="PackedScene" uid="uid://b7m0frngln6k4" path="res://scenes/sample_question.tscn" id="2_cd2i8"]
+
+[node name="QuestionAreaNonUi" type="Node2D"]
+script = ExtResource("1_aa21a")
+question_scene = ExtResource("2_cd2i8")
+
+[node name="QuestionSpawnLocation" type="Node2D" parent="."]
+
+[node name="Col0" type="Node2D" parent="QuestionSpawnLocation"]
+position = Vector2(231, 252)
+metadata/_edit_group_ = true
+
+[node name="Row0" type="Marker2D" parent="QuestionSpawnLocation/Col0" groups=["question_marker"]]
+
+[node name="Row1" type="Marker2D" parent="QuestionSpawnLocation/Col0" groups=["question_marker"]]
+position = Vector2(0, 150)
+
+[node name="Row2" type="Marker2D" parent="QuestionSpawnLocation/Col0" groups=["question_marker"]]
+position = Vector2(0, 300)
+
+[node name="Row3" type="Marker2D" parent="QuestionSpawnLocation/Col0" groups=["question_marker"]]
+position = Vector2(0, 450)
+
+[node name="Row4" type="Marker2D" parent="QuestionSpawnLocation/Col0" groups=["question_marker"]]
+position = Vector2(0, 600)
+
+[node name="Col0" type="Node2D" parent="QuestionSpawnLocation/Col0"]
+position = Vector2(231, 252)
+metadata/_edit_group_ = true
+
+[node name="Row0" type="Marker2D" parent="QuestionSpawnLocation/Col0/Col0" groups=["question_marker"]]
+
+[node name="Row1" type="Marker2D" parent="QuestionSpawnLocation/Col0/Col0" groups=["question_marker"]]
+position = Vector2(0, 150)
+
+[node name="Row2" type="Marker2D" parent="QuestionSpawnLocation/Col0/Col0" groups=["question_marker"]]
+position = Vector2(0, 300)
+
+[node name="Row3" type="Marker2D" parent="QuestionSpawnLocation/Col0/Col0" groups=["question_marker"]]
+position = Vector2(0, 450)
+
+[node name="Row4" type="Marker2D" parent="QuestionSpawnLocation/Col0/Col0" groups=["question_marker"]]
+position = Vector2(0, 600)
+
+[node name="Col1" type="Node2D" parent="QuestionSpawnLocation"]
+position = Vector2(562, 252)
+metadata/_edit_group_ = true
+
+[node name="Row0" type="Marker2D" parent="QuestionSpawnLocation/Col1" groups=["question_marker"]]
+
+[node name="Row1" type="Marker2D" parent="QuestionSpawnLocation/Col1" groups=["question_marker"]]
+position = Vector2(0, 150)
+
+[node name="Row2" type="Marker2D" parent="QuestionSpawnLocation/Col1" groups=["question_marker"]]
+position = Vector2(0, 300)
+
+[node name="Row3" type="Marker2D" parent="QuestionSpawnLocation/Col1" groups=["question_marker"]]
+position = Vector2(0, 450)
+
+[node name="Row4" type="Marker2D" parent="QuestionSpawnLocation/Col1" groups=["question_marker"]]
+position = Vector2(0, 600)

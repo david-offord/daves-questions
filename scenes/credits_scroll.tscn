@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://x3ce6ae3gvpb"]
+
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="1_oql5p"]
+[ext_resource type="Script" uid="uid://cbtx6xv4kcl2a" path="res://scripts/credits_scroll.gd" id="1_r0nrg"]
+
+[node name="CreditsScroll" type="Node"]
+script = ExtResource("1_r0nrg")
+
+[node name="Credits" type="RichTextLabel" parent="."]
+offset_left = 448.0
+offset_top = 1076.0
+offset_right = 1493.0
+offset_bottom = 3816.0
+theme_override_fonts/normal_font = ExtResource("1_oql5p")
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+theme_override_font_sizes/mono_font_size = 64
+bbcode_enabled = true
+text = "BY MDFD GAMES
+
+QUESTIONS:
+David Offord
+Erik Mcpherrin
+Kathryn Offord
+Lucas Naumowicz
+Takahiro Kinoshita
+
+PROGRAMMING:
+DAVID OFFORD
+
+ART:
+KATHRYN OFFORD
+
+MUSIC:
+Elevator Waiting Music, Vol. 4 – Sascha Ende
+Elevator Waiting Music, Vol. 2 – Sascha Ende
+Elevator Waiting Music, Vol. 3 – Sascha Ende
+Lazy Cat Groove – Sascha Ende
+Midnight Velvet – Sascha Ende
+Silent Movie 68 – Sascha Ende
+Velvet Sunset – Sascha Ende
+Til Dawn – Nuan Sonar
+
+Sound effects:
+[font_size=48]Click_Standard_02.wav – LittleRobotSoundFactory
+sf3-sfx-menu-validate-L.wav – broumbroum
+menu_target – ZeltBolt
+Wrong answer. – SgtPepperArc360
+1950s_Soviet_Krautrock_SubmarinePing_2(singlenote)-012.wav – Hewn.Marrow
+Casinosfx 001 – modusmogulus
+[/font_size]"
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="ReturnText" type="Label" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -132.0
+offset_right = 374.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_oql5p")
+theme_override_font_sizes/font_size = 64
+text = "Press A/B To Return"
+vertical_alignment = 1

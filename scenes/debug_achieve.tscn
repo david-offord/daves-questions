@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://d25muavc7owga"]
+
+[ext_resource type="Shader" uid="uid://5ncq8kufi0mo" path="res://scenes/up_down_wobble.gdshader" id="1_klud4"]
+[ext_resource type="Texture2D" uid="uid://b6mgvuq6qc6wt" path="res://images/debug_notif.png" id="2_fdg37"]
+[ext_resource type="Script" uid="uid://u3qwyv3v1g1p" path="res://scripts/debug_notif.gd" id="2_gu046"]
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="3_gu046"]
+[ext_resource type="Script" uid="uid://icpqiak7voow" path="res://scripts/AutoFontSize.gd" id="4_34heu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e1cbu"]
+shader = ExtResource("1_klud4")
+shader_parameter/screen_height = 1080.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wevv"]
+shader = ExtResource("1_klud4")
+shader_parameter/screen_height = 1080.0
+
+[node name="DebugAchieve" type="Control"]
+material = SubResource("ShaderMaterial_e1cbu")
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 52.0
+offset_top = -163.0
+offset_right = 563.0
+offset_bottom = -51.0
+grow_vertical = 0
+script = ExtResource("2_gu046")
+
+[node name="ColorRect" type="TextureRect" parent="."]
+modulate = Color(0.7879114, 0, 0.26458162, 1)
+material = SubResource("ShaderMaterial_6wevv")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fdg37")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_gu046")
+theme_override_font_sizes/font_size = 28
+text = "ACHIEVEMENT WOULD HAVE BEEN UNLOCKED:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("4_34heu")

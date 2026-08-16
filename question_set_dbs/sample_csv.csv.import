@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bllng171hpb34"
+
+[deps]
+
+files=["res://question_set_dbs/sample_csv.Question.translation", "res://question_set_dbs/sample_csv.CorrectAnswer.translation", "res://question_set_dbs/sample_csv.WrongAnswer1.translation", "res://question_set_dbs/sample_csv.WrongAnswer2.translation", "res://question_set_dbs/sample_csv.PointValue.translation", "res://question_set_dbs/sample_csv.CategoryType.translation"]
+
+source_file="res://question_set_dbs/sample_csv.csv"
+dest_files=["res://question_set_dbs/sample_csv.Question.translation", "res://question_set_dbs/sample_csv.CorrectAnswer.translation", "res://question_set_dbs/sample_csv.WrongAnswer1.translation", "res://question_set_dbs/sample_csv.WrongAnswer2.translation", "res://question_set_dbs/sample_csv.PointValue.translation", "res://question_set_dbs/sample_csv.CategoryType.translation"]
+
+[params]
+
+compress=true
+delimiter=0

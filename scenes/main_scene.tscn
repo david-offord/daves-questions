@@ -1,0 +1,35 @@
+[gd_scene load_steps=9 format=3 uid="uid://dxmn22cv3rlfl"]
+
+[ext_resource type="Script" uid="uid://bgt21pws7gi8l" path="res://scripts/main_scene.gd" id="1_pw63i"]
+[ext_resource type="PackedScene" uid="uid://do1umw7ypkisg" path="res://scenes/hud.tscn" id="2_7ykc4"]
+[ext_resource type="PackedScene" uid="uid://gk73vc666cmc" path="res://scenes/title_screen.tscn" id="2_c16ls"]
+[ext_resource type="PackedScene" uid="uid://dop4eoovvog55" path="res://scenes/controller_configure.tscn" id="2_rt2n2"]
+[ext_resource type="PackedScene" uid="uid://b2leh7jk34i7i" path="res://scenes/final_score.tscn" id="3_gubc5"]
+[ext_resource type="PackedScene" uid="uid://cl2hu6ex35yo6" path="res://scenes/background_crazy.tscn" id="4_gubc5"]
+[ext_resource type="PackedScene" uid="uid://olin8fwvu4vl" path="res://scenes/question_area.tscn" id="4_pu3yx"]
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_c16ls"]
+
+[node name="MainScene" type="Node"]
+script = ExtResource("1_pw63i")
+title_screen_scene = ExtResource("2_c16ls")
+controller_configuration_scene = ExtResource("2_rt2n2")
+question_game_scene = ExtResource("4_pu3yx")
+final_score_game_scene = ExtResource("3_gubc5")
+
+[node name="HUD" parent="." instance=ExtResource("2_7ykc4")]
+visible = false
+offset_top = 2.0
+offset_bottom = 2.0
+
+[node name="Background" parent="." instance=ExtResource("4_gubc5")]
+
+[node name="AudioPlayerME" type="AudioStreamPlayer" parent="."]
+mix_target = 2
+
+[node name="SoundEffectsContainer" type="Node" parent="."]
+
+[node name="AudioPlayerSE" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPolyphonic_c16ls")
+mix_target = 2
+max_polyphony = 20

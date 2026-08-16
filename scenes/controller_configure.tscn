@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://dop4eoovvog55"]
+
+[ext_resource type="Script" uid="uid://dk48b34jaksxa" path="res://scripts/controller_configure.gd" id="1_l3sa5"]
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="2_jevp3"]
+[ext_resource type="Script" uid="uid://icpqiak7voow" path="res://scripts/AutoFontSize.gd" id="3_8tyoc"]
+
+[node name="ControllerConfiguration" type="Sprite2D"]
+script = ExtResource("1_l3sa5")
+
+[node name="TextContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 1921.0
+offset_bottom = 1072.0
+
+[node name="PlayerPressPrompt" type="Label" parent="TextContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -453.5
+offset_top = -321.5
+offset_right = 453.5
+offset_bottom = 321.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_jevp3")
+theme_override_font_sizes/font_size = 96
+text = "Player 1, press A on your controller!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("3_8tyoc")
+minimum_size = 72
+maximum_size = 200
+
+[node name="PressBToStop" type="Label" parent="TextContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -277.0
+offset_right = 570.0
+offset_bottom = 113.0
+grow_vertical = 0
+rotation = -0.27576202
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.88321126, 0, 0.22113204, 1)
+theme_override_fonts/font = ExtResource("2_jevp3")
+theme_override_font_sizes/font_size = 72
+text = "Press B to finish configuration"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("3_8tyoc")
+maximum_size = 72

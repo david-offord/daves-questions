@@ -1,0 +1,169 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgxuw0lt0pu84"]
+
+[ext_resource type="Texture2D" uid="uid://cuxik1fu7o7l4" path="res://images/player_score.png" id="1_2ajuf"]
+[ext_resource type="Script" uid="uid://4lcsewlafhh6" path="res://scripts/player_score_board.gd" id="1_r0qu2"]
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="2_r0qu2"]
+[ext_resource type="Script" uid="uid://icpqiak7voow" path="res://scripts/AutoFontSize.gd" id="3_ev865"]
+
+[node name="PlayerScoreBoard" type="Node2D"]
+script = ExtResource("1_r0qu2")
+
+[node name="Player1Board" type="Sprite2D" parent="."]
+texture = ExtResource("1_2ajuf")
+
+[node name="BoardImage" type="Sprite2D" parent="Player1Board"]
+modulate = Color(0, 0.6666667, 0.9490196, 1)
+z_index = 2
+texture = ExtResource("1_2ajuf")
+
+[node name="Title" type="Label" parent="Player1Board"]
+z_index = 3
+offset_left = -149.0
+offset_top = -70.0
+offset_right = 146.0
+offset_bottom = -9.0
+theme_override_fonts/font = ExtResource("2_r0qu2")
+theme_override_font_sizes/font_size = 48
+text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PointTotal" type="Label" parent="Player1Board"]
+z_index = 3
+offset_left = -146.0
+offset_top = 5.0
+offset_right = 141.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("2_r0qu2")
+theme_override_font_sizes/font_size = 48
+text = "$0"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("3_ev865")
+
+[node name="HighlightColoring" type="ColorRect" parent="Player1Board" groups=["HighlightColoring"]]
+visible = false
+z_index = 1
+offset_left = -160.0
+offset_top = -84.0
+offset_right = 160.0
+offset_bottom = 86.0
+color = Color(1, 0.8333334, 0, 1)
+
+[node name="DisabledColoring" type="ColorRect" parent="Player1Board" groups=["DisabledColoring"]]
+visible = false
+z_index = 4
+offset_left = -150.0
+offset_top = -75.0
+offset_right = 150.0
+offset_bottom = 75.0
+color = Color(0, 0, 0, 0.7058824)
+
+[node name="Player2Board" type="Sprite2D" parent="."]
+position = Vector2(406, 0)
+texture = ExtResource("1_2ajuf")
+
+[node name="Player2Board" type="Sprite2D" parent="Player2Board"]
+modulate = Color(0.92941177, 0.10980392, 0.14117648, 1)
+z_index = 2
+texture = ExtResource("1_2ajuf")
+
+[node name="Title" type="Label" parent="Player2Board"]
+z_index = 3
+offset_left = -149.0
+offset_top = -70.0
+offset_right = 146.0
+offset_bottom = -9.0
+theme_override_fonts/font = ExtResource("2_r0qu2")
+theme_override_font_sizes/font_size = 48
+text = "Player 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PointTotal" type="Label" parent="Player2Board"]
+z_index = 3
+offset_left = -146.0
+offset_top = 5.0
+offset_right = 141.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("2_r0qu2")
+theme_override_font_sizes/font_size = 48
+text = "$0"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("3_ev865")
+
+[node name="HighlightColoring" type="ColorRect" parent="Player2Board" groups=["HighlightColoring"]]
+visible = false
+z_index = 1
+offset_left = -160.0
+offset_top = -84.0
+offset_right = 160.0
+offset_bottom = 86.0
+color = Color(1, 0.8333334, 0, 1)
+
+[node name="DisabledColoring" type="ColorRect" parent="Player2Board" groups=["DisabledColoring"]]
+visible = false
+z_index = 4
+offset_left = -150.0
+offset_top = -75.0
+offset_right = 150.0
+offset_bottom = 75.0
+color = Color(0, 0, 0, 0.7058824)
+
+[node name="Player3Board" type="Sprite2D" parent="."]
+position = Vector2(831, 0)
+texture = ExtResource("1_2ajuf")
+metadata/_edit_group_ = true
+
+[node name="Player3Board" type="Sprite2D" parent="Player3Board"]
+modulate = Color(0.54901963, 0.7764706, 0.24705882, 1)
+z_index = 2
+texture = ExtResource("1_2ajuf")
+metadata/_edit_group_ = true
+
+[node name="Title" type="Label" parent="Player3Board"]
+z_index = 3
+offset_left = -149.0
+offset_top = -70.0
+offset_right = 146.0
+offset_bottom = -9.0
+theme_override_fonts/font = ExtResource("2_r0qu2")
+theme_override_font_sizes/font_size = 48
+text = "Player 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PointTotal" type="Label" parent="Player3Board"]
+z_index = 3
+offset_left = -146.0
+offset_top = 5.0
+offset_right = 141.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("2_r0qu2")
+theme_override_font_sizes/font_size = 48
+text = "$0"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("3_ev865")
+
+[node name="HighlightColoring" type="ColorRect" parent="Player3Board" groups=["HighlightColoring"]]
+visible = false
+z_index = 1
+offset_left = -160.0
+offset_top = -84.0
+offset_right = 160.0
+offset_bottom = 86.0
+color = Color(1, 0.8333334, 0, 1)
+
+[node name="DisabledColoring" type="ColorRect" parent="Player3Board" groups=["DisabledColoring"]]
+visible = false
+z_index = 4
+offset_left = -150.0
+offset_top = -75.0
+offset_right = 150.0
+offset_bottom = 75.0
+color = Color(0, 0, 0, 0.7058824)

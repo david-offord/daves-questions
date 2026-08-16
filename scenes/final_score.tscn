@@ -1,0 +1,248 @@
+[gd_scene load_steps=7 format=3 uid="uid://b2leh7jk34i7i"]
+
+[ext_resource type="Script" uid="uid://b0ffia8mlmbnh" path="res://scripts/final_score.gd" id="1_8akks"]
+[ext_resource type="PackedScene" uid="uid://b53llw31s5h2s" path="res://scenes/accouncer.tscn" id="2_j321l"]
+[ext_resource type="Texture2D" uid="uid://bs0t4uutm0d56" path="res://images/questionbox.png" id="2_mkbuu"]
+[ext_resource type="Texture2D" uid="uid://bx3ys8u3ml6f5" path="res://images/ranking_box.png" id="2_skuin"]
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="3_088ab"]
+[ext_resource type="Script" uid="uid://icpqiak7voow" path="res://scripts/AutoFontSize.gd" id="4_5d6iu"]
+
+[node name="QuestionAnswerScreen" type="Node2D"]
+script = ExtResource("1_8akks")
+
+[node name="FinaleAnnouncer" parent="." instance=ExtResource("2_j321l")]
+position = Vector2(209, 753)
+
+[node name="PlaceLocations" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+
+[node name="Place1Marker" type="Marker2D" parent="PlaceLocations"]
+self_modulate = Color(0.24313726, 0.6117647, 0.8117647, 1)
+texture_filter = 1
+position = Vector2(1004, 130)
+metadata/_edit_group_ = true
+
+[node name="Place2Marker" type="Marker2D" parent="PlaceLocations"]
+self_modulate = Color(0.9490196, 0.105882354, 0.105882354, 1)
+texture_filter = 1
+position = Vector2(1004, 400)
+metadata/_edit_group_ = true
+
+[node name="Place3Marker" type="Marker2D" parent="PlaceLocations"]
+self_modulate = Color(0.7764706, 0.25882354, 0.75686276, 1)
+texture_filter = 1
+position = Vector2(1004, 670)
+metadata/_edit_group_ = true
+
+[node name="RankingBoard" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="Player1Score" type="Sprite2D" parent="RankingBoard"]
+visible = false
+self_modulate = Color(0.24313726, 0.6117647, 0.8117647, 1)
+texture_filter = 1
+position = Vector2(1004, 130)
+texture = ExtResource("2_skuin")
+
+[node name="Label" type="Label" parent="RankingBoard/Player1Score"]
+offset_left = -600.0
+offset_top = -100.0
+offset_right = -289.0
+offset_bottom = 99.0
+theme_override_fonts/font = ExtResource("3_088ab")
+theme_override_font_sizes/font_size = 72
+text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Score" type="Label" parent="RankingBoard/Player1Score"]
+offset_left = -268.0
+offset_top = -95.0
+offset_right = 593.0
+offset_bottom = 104.0
+theme_override_fonts/font = ExtResource("3_088ab")
+theme_override_font_sizes/font_size = 72
+text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Player2Score" type="Sprite2D" parent="RankingBoard"]
+visible = false
+self_modulate = Color(0.9490196, 0.105882354, 0.105882354, 1)
+texture_filter = 1
+position = Vector2(1004, 400)
+texture = ExtResource("2_skuin")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="RankingBoard/Player2Score"]
+offset_left = -600.0
+offset_top = -100.0
+offset_right = -292.0
+offset_bottom = 99.0
+theme_override_fonts/font = ExtResource("3_088ab")
+theme_override_font_sizes/font_size = 72
+text = "Player 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Score" type="Label" parent="RankingBoard/Player2Score"]
+offset_left = -268.0
+offset_top = -95.0
+offset_right = 593.0
+offset_bottom = 104.0
+theme_override_fonts/font = ExtResource("3_088ab")
+theme_override_font_sizes/font_size = 72
+text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Player3Score" type="Sprite2D" parent="RankingBoard"]
+visible = false
+self_modulate = Color(0.54901963, 0.7764706, 0.24705882, 1)
+texture_filter = 1
+position = Vector2(1004, 670)
+texture = ExtResource("2_skuin")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="RankingBoard/Player3Score"]
+offset_left = -600.0
+offset_top = -100.0
+offset_right = -292.0
+offset_bottom = 99.0
+theme_override_fonts/font = ExtResource("3_088ab")
+theme_override_font_sizes/font_size = 72
+text = "Player 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Score" type="Label" parent="RankingBoard/Player3Score"]
+offset_left = -268.0
+offset_top = -95.0
+offset_right = 593.0
+offset_bottom = 104.0
+theme_override_fonts/font = ExtResource("3_088ab")
+theme_override_font_sizes/font_size = 72
+text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="FinalAnswerShowing" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="AnswerBox" type="Sprite2D" parent="FinalAnswerShowing"]
+visible = false
+position = Vector2(1154, 493.00006)
+scale = Vector2(0.66400015, 0.6640002)
+texture = ExtResource("2_mkbuu")
+metadata/_edit_group_ = true
+
+[node name="Answer" type="Label" parent="FinalAnswerShowing/AnswerBox"]
+anchors_preset = -1
+anchor_left = 0.019547323
+anchor_top = 0.043209717
+anchor_right = 0.9527572
+anchor_bottom = 0.88918495
+offset_left = -756.17285
+offset_top = -253.08643
+offset_right = -716.1729
+offset_bottom = -230.08643
+theme_override_fonts/font = ExtResource("3_088ab")
+theme_override_font_sizes/font_size = 150
+text = "YO MR WHITE!!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 1
+script = ExtResource("4_5d6iu")
+metadata/_edit_use_anchors_ = true
+
+[node name="MoneyIncreaseText" type="Control" parent="FinalAnswerShowing"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1912.17
+offset_bottom = 1084.0
+
+[node name="MoneyIncreaseText" type="Label" parent="FinalAnswerShowing/MoneyIncreaseText"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.66800004
+anchor_top = 0.818
+anchor_right = 0.66800004
+anchor_bottom = 0.818
+offset_left = -608.3297
+offset_top = -119.712036
+offset_right = 358.67017
+offset_bottom = 120.287964
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(484.45, 120)
+theme_override_colors/font_color = Color(0.47772512, 1, 0.47772512, 1)
+theme_override_fonts/font = ExtResource("3_088ab")
+theme_override_font_sizes/font_size = 150
+text = "+ $200,000"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 1
+script = ExtResource("4_5d6iu")
+maximum_size = 200
+metadata/_edit_group_ = true
+
+[node name="ButtonsMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1916.0
+offset_bottom = 1084.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NewGame" type="Button" parent="ButtonsMenu"]
+layout_mode = 0
+offset_left = 495.0
+offset_top = 897.0
+offset_right = 886.0
+offset_bottom = 1042.0
+theme_override_fonts/font = ExtResource("3_088ab")
+theme_override_font_sizes/font_size = 72
+text = "New Game"
+
+[node name="ReturnToTitle" type="Button" parent="ButtonsMenu"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -979.0
+offset_top = -184.0
+offset_right = -588.0
+offset_bottom = -39.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_088ab")
+theme_override_font_sizes/font_size = 72
+text = "Return To Title"
+
+[node name="QuitGame" type="Button" parent="ButtonsMenu"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -543.0
+offset_top = -184.0
+offset_right = -152.0
+offset_bottom = -39.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_088ab")
+theme_override_font_sizes/font_size = 72
+text = "Quit Game"

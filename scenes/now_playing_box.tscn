@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnphq6i1cre08"]
+
+[ext_resource type="Script" uid="uid://djoyuf83p6t40" path="res://scripts/now_playing_box.gd" id="1_lyagp"]
+[ext_resource type="Texture2D" uid="uid://0uxlxpb0v1t4" path="res://images/music_notes.png" id="2_ued2s"]
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="3_duyyp"]
+[ext_resource type="Script" uid="uid://icpqiak7voow" path="res://scripts/AutoFontSize.gd" id="4_dsclh"]
+
+[node name="NowPlayingBox" type="Control"]
+modulate = Color(1, 1, 1, 0)
+z_index = 4096
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 45.0
+offset_top = 35.0
+offset_right = 539.0
+offset_bottom = 254.0
+script = ExtResource("1_lyagp")
+
+[node name="MusicIcon" type="TextureRect" parent="."]
+z_index = 4096
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 22.0
+offset_right = -312.98373
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ued2s")
+expand_mode = 1
+
+[node name="NowPlaying" type="Label" parent="."]
+z_index = 4096
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -291.0
+offset_top = -62.5
+offset_bottom = 41.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_duyyp")
+theme_override_font_sizes/font_size = 40
+text = "Now Playing:
+Title - Artist"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("4_dsclh")
+minimum_size = 20
+maximum_size = 40

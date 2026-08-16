@@ -1,0 +1,155 @@
+[gd_scene load_steps=7 format=3 uid="uid://davi0u2oqkjo"]
+
+[ext_resource type="Script" uid="uid://dsuvdoo78oavk" path="res://scripts/question_area.gd" id="1_22aao"]
+[ext_resource type="PackedScene" uid="uid://b7m0frngln6k4" path="res://scenes/sample_question.tscn" id="2_f0t4h"]
+[ext_resource type="PackedScene" uid="uid://cmygbuvve27rw" path="res://scenes/question_board_header.tscn" id="3_wtx1a"]
+[ext_resource type="PackedScene" uid="uid://db20vtiigbqee" path="res://scenes/question_answer_screen.tscn" id="4_1alp4"]
+[ext_resource type="PackedScene" uid="uid://b53llw31s5h2s" path="res://scenes/accouncer.tscn" id="5_gy4k1"]
+[ext_resource type="PackedScene" uid="uid://dgxuw0lt0pu84" path="res://scenes/player_score_board.tscn" id="6_se0yb"]
+
+[node name="QuestionAreaNonUi" type="Node2D"]
+script = ExtResource("1_22aao")
+question_scene = ExtResource("2_f0t4h")
+category_header_scene = ExtResource("3_wtx1a")
+buzz_in_and_answer_scene = ExtResource("4_1alp4")
+
+[node name="QuestionSpawnLocation" type="Node2D" parent="."]
+position = Vector2(451, 266)
+scale = Vector2(0.8, 0.8)
+metadata/_edit_group_ = true
+
+[node name="Col0" type="Node2D" parent="QuestionSpawnLocation"]
+position = Vector2(0, 150)
+metadata/_edit_group_ = true
+
+[node name="Category" type="Marker2D" parent="QuestionSpawnLocation/Col0" groups=["category_header"]]
+position = Vector2(0, -150)
+
+[node name="Row0" type="Marker2D" parent="QuestionSpawnLocation/Col0" groups=["question_marker"]]
+
+[node name="Row1" type="Marker2D" parent="QuestionSpawnLocation/Col0" groups=["question_marker"]]
+position = Vector2(0, 150)
+
+[node name="Row2" type="Marker2D" parent="QuestionSpawnLocation/Col0" groups=["question_marker"]]
+position = Vector2(0, 300)
+
+[node name="Row3" type="Marker2D" parent="QuestionSpawnLocation/Col0" groups=["question_marker"]]
+position = Vector2(0, 450)
+
+[node name="Row4" type="Marker2D" parent="QuestionSpawnLocation/Col0" groups=["question_marker"]]
+position = Vector2(0, 600)
+
+[node name="Col1" type="Node2D" parent="QuestionSpawnLocation"]
+position = Vector2(331, 150)
+metadata/_edit_group_ = true
+
+[node name="Category" type="Marker2D" parent="QuestionSpawnLocation/Col1" groups=["category_header"]]
+position = Vector2(0, -150)
+
+[node name="Row0" type="Marker2D" parent="QuestionSpawnLocation/Col1" groups=["question_marker"]]
+
+[node name="Row1" type="Marker2D" parent="QuestionSpawnLocation/Col1" groups=["question_marker"]]
+position = Vector2(0, 150)
+
+[node name="Row2" type="Marker2D" parent="QuestionSpawnLocation/Col1" groups=["question_marker"]]
+position = Vector2(0, 300)
+
+[node name="Row3" type="Marker2D" parent="QuestionSpawnLocation/Col1" groups=["question_marker"]]
+position = Vector2(0, 450)
+
+[node name="Row4" type="Marker2D" parent="QuestionSpawnLocation/Col1" groups=["question_marker"]]
+position = Vector2(0, 600)
+
+[node name="Col2" type="Node2D" parent="QuestionSpawnLocation"]
+position = Vector2(662, 150)
+metadata/_edit_group_ = true
+
+[node name="Category" type="Marker2D" parent="QuestionSpawnLocation/Col2" groups=["category_header"]]
+position = Vector2(0, -150)
+
+[node name="Row0" type="Marker2D" parent="QuestionSpawnLocation/Col2" groups=["question_marker"]]
+
+[node name="Row1" type="Marker2D" parent="QuestionSpawnLocation/Col2" groups=["question_marker"]]
+position = Vector2(0, 150)
+
+[node name="Row2" type="Marker2D" parent="QuestionSpawnLocation/Col2" groups=["question_marker"]]
+position = Vector2(0, 300)
+
+[node name="Row3" type="Marker2D" parent="QuestionSpawnLocation/Col2" groups=["question_marker"]]
+position = Vector2(0, 450)
+
+[node name="Row4" type="Marker2D" parent="QuestionSpawnLocation/Col2" groups=["question_marker"]]
+position = Vector2(0, 600)
+
+[node name="Col3" type="Node2D" parent="QuestionSpawnLocation"]
+position = Vector2(993, 150)
+metadata/_edit_group_ = true
+
+[node name="Category" type="Marker2D" parent="QuestionSpawnLocation/Col3" groups=["category_header"]]
+position = Vector2(0, -150)
+
+[node name="Row0" type="Marker2D" parent="QuestionSpawnLocation/Col3" groups=["question_marker"]]
+
+[node name="Row1" type="Marker2D" parent="QuestionSpawnLocation/Col3" groups=["question_marker"]]
+position = Vector2(0, 150)
+
+[node name="Row2" type="Marker2D" parent="QuestionSpawnLocation/Col3" groups=["question_marker"]]
+position = Vector2(0, 300)
+
+[node name="Row3" type="Marker2D" parent="QuestionSpawnLocation/Col3" groups=["question_marker"]]
+position = Vector2(0, 450)
+
+[node name="Row4" type="Marker2D" parent="QuestionSpawnLocation/Col3" groups=["question_marker"]]
+position = Vector2(0, 600)
+
+[node name="Col4" type="Node2D" parent="QuestionSpawnLocation"]
+position = Vector2(1324, 150)
+metadata/_edit_group_ = true
+
+[node name="Category" type="Marker2D" parent="QuestionSpawnLocation/Col4" groups=["category_header"]]
+position = Vector2(0, -150)
+
+[node name="Row0" type="Marker2D" parent="QuestionSpawnLocation/Col4" groups=["question_marker"]]
+
+[node name="Row1" type="Marker2D" parent="QuestionSpawnLocation/Col4" groups=["question_marker"]]
+position = Vector2(0, 150)
+
+[node name="Row2" type="Marker2D" parent="QuestionSpawnLocation/Col4" groups=["question_marker"]]
+position = Vector2(0, 300)
+
+[node name="Row3" type="Marker2D" parent="QuestionSpawnLocation/Col4" groups=["question_marker"]]
+position = Vector2(0, 450)
+
+[node name="Row4" type="Marker2D" parent="QuestionSpawnLocation/Col4" groups=["question_marker"]]
+position = Vector2(0, 600)
+
+[node name="Col5" type="Node2D" parent="QuestionSpawnLocation"]
+position = Vector2(1655, 150)
+metadata/_edit_group_ = true
+
+[node name="Category" type="Marker2D" parent="QuestionSpawnLocation/Col5" groups=["category_header"]]
+position = Vector2(0, -150)
+
+[node name="Row0" type="Marker2D" parent="QuestionSpawnLocation/Col5" groups=["question_marker"]]
+
+[node name="Row1" type="Marker2D" parent="QuestionSpawnLocation/Col5" groups=["question_marker"]]
+position = Vector2(0, 150)
+
+[node name="Row2" type="Marker2D" parent="QuestionSpawnLocation/Col5" groups=["question_marker"]]
+position = Vector2(0, 300)
+
+[node name="Row3" type="Marker2D" parent="QuestionSpawnLocation/Col5" groups=["question_marker"]]
+position = Vector2(0, 450)
+
+[node name="Row4" type="Marker2D" parent="QuestionSpawnLocation/Col5" groups=["question_marker"]]
+position = Vector2(0, 600)
+
+[node name="TestAnnouncer" parent="." instance=ExtResource("5_gy4k1")]
+position = Vector2(177, 796)
+
+[node name="PlayerScoreBoard" parent="." instance=ExtResource("6_se0yb")]
+position = Vector2(579, 94)
+
+[node name="TimerLocation" type="Marker2D" parent="."]
+position = Vector2(130, 106.999985)
+scale = Vector2(0.8, 0.8)

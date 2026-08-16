@@ -1,0 +1,28 @@
+BY MDFD GAMES
+
+PROGRAMMING:
+DAVID OFFORD
+
+ART:
+KATHRYN OFFORD
+
+MUSIC:
+Elevator Waiting Music, Vol. 4 – Sascha Ende
+Elevator Waiting Music, Vol. 2 – Sascha Ende
+Elevator Waiting Music, Vol. 3 – Sascha Ende
+Lazy Cat Groove – Sascha Ende
+Midnight Velvet – Sascha Ende
+Japan Lo-Fi, Vol. 2 – Sascha Ende
+Silent Movie 68 – Sascha Ende
+Velvet Sunset – Sascha Ende
+Til Dawn – Nuan Sonar
+Mattatat – Nuan Sonar
+
+Sound effects:
+[font_size=48]Click_Standard_02.wav – LittleRobotSoundFactory
+sf3-sfx-menu-validate-L.wav – broumbroum
+menu_target – ZeltBolt
+Wrong answer. – SgtPepperArc360
+1950s_Soviet_Krautrock_SubmarinePing_2(singlenote)-012.wav – Hewn.Marrow
+Casinosfx 001 – modusmogulus
+[/font_size]

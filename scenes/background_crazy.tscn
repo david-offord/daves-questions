@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://cl2hu6ex35yo6"]
+
+[ext_resource type="Shader" uid="uid://djvqbsk0raywt" path="res://scripts/background_crazy.gdshader" id="1_asp30"]
+[ext_resource type="Texture2D" uid="uid://d36anoq8foog6" path="res://images/KathrynsSprites/Background.png" id="2_asp30"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmpld"]
+shader = ExtResource("1_asp30")
+shader_parameter/screen_height = 1080.0
+
+[sub_resource type="Shader" id="Shader_asp30"]
+code = "shader_type canvas_item;
+
+uniform float screen_height = 1080;
+
+void fragment() {
+	float diff_x = (-0.1 * sin((10.0 * UV.y) + (.3 * TIME))) -.3;
+	COLOR = texture(TEXTURE, vec2(UV.x + diff_x, UV.y));
+	
+	COLOR = mix(vec4(0.0), COLOR, float(int(UV.y * screen_height) % 2));
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_clsbl"]
+shader = SubResource("Shader_asp30")
+shader_parameter/screen_height = 1080.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1936.0
+offset_bottom = 1090.0
+color = Color(0.09411765, 0.08235294, 0.23921569, 1)
+
+[node name="Wobble1" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_lmpld")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_asp30")
+
+[node name="Wobble2" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_clsbl")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_asp30")

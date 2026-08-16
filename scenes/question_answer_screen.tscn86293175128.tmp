@@ -1,0 +1,99 @@
+[gd_scene load_steps=7 format=3 uid="uid://db20vtiigbqee"]
+
+[ext_resource type="Script" uid="uid://bcyn1r4qjr88b" path="res://scripts/question_answer_screen.gd" id="1_iqpre"]
+[ext_resource type="Texture2D" uid="uid://bs0t4uutm0d56" path="res://images/questionbox.png" id="3_0kitv"]
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://cmunvt.ttf" id="4_jbljn"]
+[ext_resource type="Texture2D" uid="uid://djg3fda7a26tl" path="res://images/pulsing_enter.png" id="5_jbljn"]
+[ext_resource type="Script" uid="uid://icpqiak7voow" path="res://scripts/AutoFontSize.gd" id="5_vnife"]
+[ext_resource type="Script" uid="uid://dlt65jxv6dymu" path="res://scripts/press_a_to_guess.gd" id="6_vnife"]
+
+[node name="QuestionAnswerScreen" type="Node2D"]
+script = ExtResource("1_iqpre")
+
+[node name="QuestionTextBox" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1004, 487)
+texture = ExtResource("3_0kitv")
+metadata/_edit_group_ = true
+
+[node name="QuestionText" type="Label" parent="QuestionTextBox"]
+offset_left = -735.0
+offset_top = -258.5
+offset_right = 673.0
+offset_bottom = 250.5
+theme_override_fonts/font = ExtResource("4_jbljn")
+theme_override_font_sizes/font_size = 96
+text = "YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHI1211231"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("5_vnife")
+
+[node name="AnswerOption0" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(526.75, 774.50006)
+scale = Vector2(0.30100003, 0.30100003)
+texture = ExtResource("3_0kitv")
+metadata/_edit_group_ = true
+
+[node name="QuestionText" type="Label" parent="AnswerOption0"]
+offset_left = -735.0
+offset_top = -258.5
+offset_right = 673.0
+offset_bottom = 250.5
+theme_override_fonts/font = ExtResource("4_jbljn")
+theme_override_font_sizes/font_size = 96
+text = "YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHI1211231"
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("5_vnife")
+metadata/_edit_use_anchors_ = true
+
+[node name="AnswerOption1" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(1014.75, 970.50006)
+scale = Vector2(0.30100003, 0.30100003)
+texture = ExtResource("3_0kitv")
+metadata/_edit_group_ = true
+
+[node name="QuestionText" type="Label" parent="AnswerOption1"]
+offset_left = -735.0
+offset_top = -258.5
+offset_right = 673.0
+offset_bottom = 250.5
+theme_override_fonts/font = ExtResource("4_jbljn")
+theme_override_font_sizes/font_size = 96
+text = "YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHI1211231"
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("5_vnife")
+
+[node name="AnswerOption2" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(1474.75, 774.50006)
+scale = Vector2(0.30100003, 0.30100003)
+texture = ExtResource("3_0kitv")
+metadata/_edit_group_ = true
+
+[node name="QuestionText" type="Label" parent="AnswerOption2"]
+offset_left = -735.0
+offset_top = -258.5
+offset_right = 673.0
+offset_bottom = 250.5
+theme_override_fonts/font = ExtResource("4_jbljn")
+theme_override_font_sizes/font_size = 96
+text = "YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHITE!!! YO MR WHI1211231"
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("5_vnife")
+
+[node name="PressAToGuess" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1653.0001, 801.00006)
+scale = Vector2(0.8725, 0.8725)
+texture = ExtResource("5_jbljn")
+script = ExtResource("6_vnife")

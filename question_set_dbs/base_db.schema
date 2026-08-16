@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS "Categories" (
+	"Id"	INTEGER UNIQUE, 
+	"CategoryName"	TEXT, 
+	"CategoryQuestionCount"	TEXT, 
+	"CategoryType"	TEXT, 
+	PRIMARY KEY("Id" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "Questions" (
+	"Id"	INTEGER UNIQUE, 
+	"Question"	TEXT, 
+	"CorrectAnswer"	TEXT, 
+	"AiCorrectAnswer"	TEXT, 
+	"WrongAnswer1"	TEXT, 
+	"WrongAnswer2"	TEXT, 
+	"Value"	INTEGER, 
+	"CategoryId"	INTEGER, 
+	PRIMARY KEY("Id")
+);
+CREATE TABLE IF NOT EXISTS "Info" (
+	"QuestionSetNameUI"	TEXT, 
+	"Author"	TEXT, 
+	"TotalQuestions"	INTEGER
+);

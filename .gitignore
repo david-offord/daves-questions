@@ -1,0 +1,11 @@
+# Godot 4+ specific ignores
+.godot/
+.vscode/*.json
+export/
+
+#question sets that should not be included, and csv translations
+question_set_dbs/original_jeopardy_questions.db
+question_set_dbs/*.translation
+
+#resoruces that should not be included
+sound/custom/music/bonus_end_song.mp3

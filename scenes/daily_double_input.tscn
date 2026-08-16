@@ -1,0 +1,541 @@
+[gd_scene load_steps=4 format=3 uid="uid://046ha8tg417p"]
+
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="1_5med2"]
+[ext_resource type="Script" uid="uid://dv26mb7c7mgti" path="res://scripts/daily_double_input.gd" id="1_otqyj"]
+[ext_resource type="Texture2D" uid="uid://kfre343m4gah" path="res://images/Arrow.png" id="2_sgn6p"]
+
+[node name="DailyDoubleInput" type="Sprite2D"]
+script = ExtResource("1_otqyj")
+
+[node name="Player0Section" type="Node2D" parent="." groups=["PlayerSection"]]
+position = Vector2(125, 564)
+scale = Vector2(0.8, 1)
+
+[node name="100000Input" type="ColorRect" parent="Player0Section" groups=["PlayerInputBox"]]
+offset_right = 88.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player0Section/100000Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="10000Input" type="ColorRect" parent="Player0Section" groups=["PlayerInputBox"]]
+offset_left = 100.0
+offset_right = 188.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player0Section/10000Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1000Input" type="ColorRect" parent="Player0Section" groups=["PlayerInputBox"]]
+offset_left = 200.0
+offset_right = 288.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player0Section/1000Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="100Input" type="ColorRect" parent="Player0Section" groups=["PlayerInputBox"]]
+offset_left = 300.0
+offset_right = 388.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player0Section/100Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="10Input" type="ColorRect" parent="Player0Section" groups=["PlayerInputBox"]]
+offset_left = 400.0
+offset_right = 488.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player0Section/10Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1Input" type="ColorRect" parent="Player0Section" groups=["PlayerInputBox"]]
+offset_left = 500.0
+offset_right = 588.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player0Section/1Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpArrow" type="Sprite2D" parent="Player0Section"]
+modulate = Color(0.24313726, 0.6117647, 0.8117647, 1)
+position = Vector2(544, -57)
+texture = ExtResource("2_sgn6p")
+
+[node name="DownArrow" type="Sprite2D" parent="Player0Section"]
+modulate = Color(0.24313726, 0.6117647, 0.8117647, 1)
+position = Vector2(544, 214)
+rotation = 3.1415927
+texture = ExtResource("2_sgn6p")
+
+[node name="Player1Section" type="Node2D" parent="." groups=["PlayerSection"]]
+position = Vector2(725, 564)
+scale = Vector2(0.8, 1)
+metadata/_edit_group_ = true
+
+[node name="100000Input" type="ColorRect" parent="Player1Section" groups=["PlayerInputBox"]]
+offset_right = 88.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player1Section/100000Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="10000Input" type="ColorRect" parent="Player1Section" groups=["PlayerInputBox"]]
+offset_left = 100.0
+offset_right = 188.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player1Section/10000Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1000Input" type="ColorRect" parent="Player1Section" groups=["PlayerInputBox"]]
+offset_left = 200.0
+offset_right = 288.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player1Section/1000Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="100Input" type="ColorRect" parent="Player1Section" groups=["PlayerInputBox"]]
+offset_left = 300.0
+offset_right = 388.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player1Section/100Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="10Input" type="ColorRect" parent="Player1Section" groups=["PlayerInputBox"]]
+offset_left = 400.0
+offset_right = 488.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player1Section/10Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1Input" type="ColorRect" parent="Player1Section" groups=["PlayerInputBox"]]
+offset_left = 500.0
+offset_right = 588.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player1Section/1Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpArrow" type="Sprite2D" parent="Player1Section"]
+modulate = Color(0.9490196, 0.105882354, 0.105882354, 1)
+position = Vector2(544, -57)
+texture = ExtResource("2_sgn6p")
+
+[node name="DownArrow" type="Sprite2D" parent="Player1Section"]
+modulate = Color(0.9490196, 0.105882354, 0.105882354, 1)
+position = Vector2(544, 214)
+rotation = 3.1415927
+texture = ExtResource("2_sgn6p")
+
+[node name="Player2Section" type="Node2D" parent="." groups=["PlayerSection"]]
+position = Vector2(1325, 564)
+scale = Vector2(0.8, 1)
+metadata/_edit_group_ = true
+
+[node name="100000Input" type="ColorRect" parent="Player2Section" groups=["PlayerInputBox"]]
+offset_right = 88.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player2Section/100000Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="10000Input" type="ColorRect" parent="Player2Section" groups=["PlayerInputBox"]]
+offset_left = 100.0
+offset_right = 188.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player2Section/10000Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1000Input" type="ColorRect" parent="Player2Section" groups=["PlayerInputBox"]]
+offset_left = 200.0
+offset_right = 288.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player2Section/1000Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="100Input" type="ColorRect" parent="Player2Section" groups=["PlayerInputBox"]]
+offset_left = 300.0
+offset_right = 388.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player2Section/100Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="10Input" type="ColorRect" parent="Player2Section" groups=["PlayerInputBox"]]
+offset_left = 400.0
+offset_right = 488.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player2Section/10Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1Input" type="ColorRect" parent="Player2Section" groups=["PlayerInputBox"]]
+offset_left = 500.0
+offset_right = 588.0
+offset_bottom = 157.0
+color = Color(0.6993055, 0.6993055, 0.6993055, 0.71800005)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Player2Section/1Input" groups=["PlayerValueDigit"]]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -62.5
+offset_right = 35.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_5med2")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpArrow" type="Sprite2D" parent="Player2Section"]
+modulate = Color(0.54901963, 0.7764706, 0.24705882, 1)
+position = Vector2(544, -57)
+texture = ExtResource("2_sgn6p")
+
+[node name="DownArrow" type="Sprite2D" parent="Player2Section"]
+modulate = Color(0.54901963, 0.7764706, 0.24705882, 1)
+position = Vector2(544, 214)
+rotation = 3.1415927
+texture = ExtResource("2_sgn6p")
+
+[node name="TimerLocation" type="Marker2D" parent="."]
+position = Vector2(1399, 325.00006)

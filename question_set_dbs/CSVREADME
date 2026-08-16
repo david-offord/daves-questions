@@ -1,0 +1,5 @@
+Place your CSV files here, go to settings, and press the "Convert CSVs to Question Sets".
+
+Make sure it follows the format found in in the sample CSV, and is less than 100,000 lines.
+
+CategoryType should only be "PopCulture","Tech","Sports", or "WorldHistory". It is also currently an optional field.

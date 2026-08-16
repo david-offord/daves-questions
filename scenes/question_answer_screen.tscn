@@ -1,0 +1,254 @@
+[gd_scene load_steps=14 format=3 uid="uid://db20vtiigbqee"]
+
+[ext_resource type="Script" uid="uid://bcyn1r4qjr88b" path="res://scripts/question_answer_screen.gd" id="1_iqpre"]
+[ext_resource type="Texture2D" uid="uid://bs0t4uutm0d56" path="res://images/questionbox.png" id="3_0kitv"]
+[ext_resource type="FontVariation" uid="uid://br0tro10cdfpu" path="res://fonts/fig_400_weight.tres" id="3_0xmap"]
+[ext_resource type="FontVariation" uid="uid://cb0xru6d146yi" path="res://fonts/fig_300_weight.tres" id="3_qi052"]
+[ext_resource type="Texture2D" uid="uid://b8qxowa6gdite" path="res://images/questionbox_highligh_maskt.png" id="5_dsdat"]
+[ext_resource type="Texture2D" uid="uid://djg3fda7a26tl" path="res://images/pulsing_enter.png" id="5_jbljn"]
+[ext_resource type="Script" uid="uid://icpqiak7voow" path="res://scripts/AutoFontSize.gd" id="5_vnife"]
+[ext_resource type="Texture2D" uid="uid://0o0x8llkojlj" path="res://images/clicked_arrow.png" id="6_eynk7"]
+[ext_resource type="Texture2D" uid="uid://bi5823fvk8civ" path="res://images/questionbox_highlight.png" id="6_mivwr"]
+[ext_resource type="Script" uid="uid://dlt65jxv6dymu" path="res://scripts/press_a_to_guess.gd" id="6_vnife"]
+[ext_resource type="Texture2D" uid="uid://dyu83fm3sbwff" path="res://images/wrong_answer_x.png" id="9_mivwr"]
+[ext_resource type="Texture2D" uid="uid://wbxc87o7wv6t" path="res://images/correct_answer_o.png" id="10_0xmap"]
+
+[sub_resource type="Theme" id="Theme_eynk7"]
+
+[node name="QuestionAnswerScreen" type="Node2D"]
+script = ExtResource("1_iqpre")
+
+[node name="QuestionTextBox" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1138, 487)
+scale = Vector2(0.84, 0.84)
+texture = ExtResource("3_0kitv")
+metadata/_edit_group_ = true
+
+[node name="QuestionText" type="Label" parent="QuestionTextBox"]
+offset_left = -702.3809
+offset_top = -207.14287
+offset_right = 713.09515
+offset_bottom = 219.04756
+theme = SubResource("Theme_eynk7")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_qi052")
+theme_override_font_sizes/font_size = 96
+text = "Yo mr white!!! Yo mr white!!! Yo mr white!!! Yo mr white!!! Yo mr white!!! Yo mr whi1211231"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("5_vnife")
+metadata/_edit_use_anchors_ = true
+
+[node name="AnswerOption0" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(660.75, 774.50006)
+scale = Vector2(0.30100003, 0.30100003)
+texture = ExtResource("3_0kitv")
+metadata/OriginalPosition = Vector2(660.75, 774.5)
+
+[node name="QuestionText" type="Label" parent="AnswerOption0"]
+anchors_preset = -1
+anchor_left = 18.86029
+anchor_top = -29.570068
+anchor_right = 18.86029
+anchor_bottom = -29.570068
+offset_left = -28997.246
+offset_top = 14574.07
+offset_right = -27588.607
+offset_bottom = 14995.997
+theme_override_constants/line_spacing = -24
+theme_override_fonts/font = ExtResource("3_0xmap")
+theme_override_font_sizes/font_size = 120
+text = "Sigma
+Sigma"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("5_vnife")
+maximum_size = 180
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonPressIcon" type="Sprite2D" parent="AnswerOption0"]
+visible = false
+light_mask = 8
+visibility_layer = 8
+texture_filter = 1
+position = Vector2(990.86365, 1.6609266)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_eynk7")
+metadata/_edit_group_ = true
+
+[node name="AnswerHighlightMask" type="Sprite2D" parent="AnswerOption0"]
+clip_children = 1
+light_mask = 8
+visibility_layer = 8
+texture_filter = 1
+position = Vector2(-749.99994, 0)
+scale = Vector2(1e-05, 0.99999994)
+texture = ExtResource("5_dsdat")
+metadata/_edit_group_ = true
+
+[node name="AnswerHighlight" type="Sprite2D" parent="AnswerOption0/AnswerHighlightMask"]
+light_mask = 8
+visibility_layer = 8
+texture_filter = 1
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("6_mivwr")
+metadata/_edit_group_ = true
+
+[node name="AnswerOption1" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(1148.75, 970.50006)
+scale = Vector2(0.30100003, 0.30100003)
+texture = ExtResource("3_0kitv")
+metadata/OriginalPosition = Vector2(1148.75, 970.5)
+
+[node name="ButtonPressIcon" type="Sprite2D" parent="AnswerOption1"]
+visible = false
+light_mask = 8
+visibility_layer = 8
+texture_filter = 1
+position = Vector2(-2.491394, -480.06662)
+rotation = -1.5707964
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_eynk7")
+metadata/_edit_group_ = true
+
+[node name="QuestionText" type="Label" parent="AnswerOption1"]
+anchors_preset = -1
+anchor_left = 18.86029
+anchor_top = -29.570068
+anchor_right = 18.86029
+anchor_bottom = -29.570068
+offset_left = -28997.246
+offset_top = 14574.07
+offset_right = -27588.607
+offset_bottom = 14995.997
+theme_override_constants/line_spacing = -24
+theme_override_fonts/font = ExtResource("3_0xmap")
+theme_override_font_sizes/font_size = 120
+text = "Sigma
+Sigma"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("5_vnife")
+maximum_size = 180
+metadata/_edit_use_anchors_ = true
+
+[node name="AnswerHighlightMask" type="Sprite2D" parent="AnswerOption1"]
+clip_children = 1
+light_mask = 8
+visibility_layer = 8
+texture_filter = 1
+position = Vector2(-749.99994, 0)
+scale = Vector2(1e-05, 0.99999994)
+texture = ExtResource("5_dsdat")
+metadata/_edit_group_ = true
+
+[node name="AnswerHighlight" type="Sprite2D" parent="AnswerOption1/AnswerHighlightMask"]
+light_mask = 8
+visibility_layer = 8
+texture_filter = 1
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("6_mivwr")
+metadata/_edit_group_ = true
+
+[node name="AnswerOption2" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(1608.75, 774.50006)
+scale = Vector2(0.30100003, 0.30100003)
+texture = ExtResource("3_0kitv")
+metadata/_edit_group_ = true
+metadata/OriginalPosition = Vector2(1608.75, 774.5)
+
+[node name="QuestionText" type="Label" parent="AnswerOption2"]
+anchors_preset = -1
+anchor_left = 18.86029
+anchor_top = -29.570068
+anchor_right = 18.86029
+anchor_bottom = -29.570068
+offset_left = -28997.246
+offset_top = 14574.07
+offset_right = -27588.607
+offset_bottom = 14995.997
+theme_override_constants/line_spacing = -24
+theme_override_fonts/font = ExtResource("3_qi052")
+theme_override_font_sizes/font_size = 120
+text = "Sigma
+Sigma"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("5_vnife")
+maximum_size = 180
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonPressIcon" type="Sprite2D" parent="AnswerOption2"]
+visible = false
+light_mask = 8
+visibility_layer = 8
+texture_filter = 1
+position = Vector2(-995.84705, 1.6608887)
+rotation = 3.1415927
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_eynk7")
+metadata/_edit_group_ = true
+
+[node name="AnswerHighlightMask" type="Sprite2D" parent="AnswerOption2"]
+clip_children = 1
+light_mask = 8
+visibility_layer = 8
+texture_filter = 1
+position = Vector2(-749.99994, 0)
+scale = Vector2(1e-05, 0.99999994)
+texture = ExtResource("5_dsdat")
+metadata/_edit_group_ = true
+
+[node name="AnswerHighlight" type="Sprite2D" parent="AnswerOption2/AnswerHighlightMask"]
+light_mask = 8
+visibility_layer = 8
+texture_filter = 1
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("6_mivwr")
+metadata/_edit_group_ = true
+
+[node name="PressAToGuess" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1649, 867)
+texture = ExtResource("5_jbljn")
+script = ExtResource("6_vnife")
+
+[node name="CenterForQuestions" type="Marker2D" parent="."]
+position = Vector2(1148.75, 774.5)
+
+[node name="ShowBuzzerTimer" type="Timer" parent="."]
+
+[node name="WrongAnswerX" type="Sprite2D" parent="."]
+visible = false
+z_index = 5
+position = Vector2(1121, 545.00006)
+texture = ExtResource("9_mivwr")
+
+[node name="CorrectAnswerO" type="Sprite2D" parent="."]
+visible = false
+z_index = 5
+position = Vector2(1121, 545)
+texture = ExtResource("10_0xmap")
+
+[node name="TimerLocation" type="Marker2D" parent="."]
+position = Vector2(207, 869)
+scale = Vector2(0.8, 0.8)
+
+[node name="TimerLocation2" type="Marker2D" parent="."]
+position = Vector2(207, 869)
+scale = Vector2(0.8, 0.8)

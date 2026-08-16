@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://b7m0frngln6k4"]
+
+[ext_resource type="Script" uid="uid://uju1rt24qt6q" path="res://scripts/question_box.gd" id="1_38jen"]
+[ext_resource type="Texture2D" uid="uid://dc1jwduydcn7c" path="res://images/test_box.png" id="1_lc52k"]
+[ext_resource type="Texture2D" uid="uid://c55jiqlwxavrs" path="res://images/test_box_outline.png" id="1_u8vf6"]
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="3_dyu3n"]
+[ext_resource type="Texture2D" uid="uid://bmlji4n7e7r3" path="res://images/test_box_disabled.png" id="4_i6l6x"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t2caj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_lc52k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_38jen"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_u8vf6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SampleQuestion" type="Node2D" groups=["question_selection_box"]]
+scale = Vector2(0.9, 0.9)
+script = ExtResource("1_38jen")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t2caj")
+
+[node name="Label" type="Label" parent="AnimatedSprite2D"]
+anchors_preset = -1
+anchor_top = -0.08370364
+anchor_bottom = -0.08370364
+offset_left = -128.88889
+offset_top = -57.77778
+offset_right = 128.11111
+offset_bottom = 79.22221
+theme_override_colors/font_color = Color(0.9843137, 0.8039216, 0.07450981, 1)
+theme_override_fonts/font = ExtResource("3_dyu3n")
+theme_override_font_sizes/font_size = 100
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DisabledBox" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_i6l6x")
+
+[node name="Hightlight" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_38jen")

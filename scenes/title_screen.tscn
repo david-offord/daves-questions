@@ -1,0 +1,164 @@
+[gd_scene load_steps=9 format=3 uid="uid://gk73vc666cmc"]
+
+[ext_resource type="Script" uid="uid://cys0cowc7xn28" path="res://scripts/title_screen.gd" id="1_s4lrb"]
+[ext_resource type="PackedScene" uid="uid://ca1w40ranrbjg" path="res://scenes/settings_screen.tscn" id="2_mgrm8"]
+[ext_resource type="Texture2D" uid="uid://bhgucobtxpkkt" path="res://images/KathrynsSprites/TitleScreen.png" id="2_s4lrb"]
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="5_dc4i4"]
+[ext_resource type="PackedScene" uid="uid://x3ce6ae3gvpb" path="res://scenes/credits_scroll.tscn" id="5_e54dn"]
+
+[sub_resource type="Animation" id="Animation_dc4i4"]
+resource_name = "rotate"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5.0333333, 10),
+"transitions": PackedFloat32Array(1.9318736, 0.84089655, 2.0000005),
+"update": 0,
+"values": [-0.1675516, 0.3351032, -0.1675516]
+}
+
+[sub_resource type="Animation" id="Animation_e54dn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3yumr"]
+_data = {
+&"RESET": SubResource("Animation_e54dn"),
+&"rotate": SubResource("Animation_dc4i4")
+}
+
+[node name="TitleScreen" type="Node"]
+script = ExtResource("1_s4lrb")
+settings_scene = ExtResource("2_mgrm8")
+credits_scroll = ExtResource("5_e54dn")
+
+[node name="TitleScreenImage" type="Sprite2D" parent="."]
+position = Vector2(970, 361)
+texture = ExtResource("2_s4lrb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TitleScreenImage"]
+libraries = {
+&"": SubResource("AnimationLibrary_3yumr")
+}
+autoplay = "rotate"
+
+[node name="MainMenuButtons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartGame" type="Button" parent="MainMenuButtons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.6412037
+anchor_right = 0.5
+anchor_bottom = 0.6412037
+offset_left = -396.0
+offset_top = 84.5
+offset_right = -6.0
+offset_bottom = 211.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../Configure")
+focus_neighbor_top = NodePath("../Credits")
+focus_neighbor_right = NodePath("../Configure")
+focus_neighbor_bottom = NodePath("../Credits")
+theme_override_fonts/font = ExtResource("5_dc4i4")
+theme_override_font_sizes/font_size = 72
+text = "START GAME"
+
+[node name="Configure" type="Button" parent="MainMenuButtons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.6412037
+anchor_right = 0.5
+anchor_bottom = 0.6412037
+offset_left = 14.0
+offset_top = 85.5
+offset_right = 404.0
+offset_bottom = 212.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../StartGame")
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_right = NodePath("../StartGame")
+focus_neighbor_bottom = NodePath("../Quit")
+theme_override_fonts/font = ExtResource("5_dc4i4")
+theme_override_font_sizes/font_size = 72
+text = "Settings"
+
+[node name="Credits" type="Button" parent="MainMenuButtons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.6412037
+anchor_right = 0.5
+anchor_bottom = 0.6412037
+offset_left = -396.0
+offset_top = 232.5
+offset_right = -6.0
+offset_bottom = 359.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../Quit")
+focus_neighbor_top = NodePath("../StartGame")
+focus_neighbor_right = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../StartGame")
+theme_override_fonts/font = ExtResource("5_dc4i4")
+theme_override_font_sizes/font_size = 72
+text = "Credits"
+
+[node name="Quit" type="Button" parent="MainMenuButtons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.6412037
+anchor_right = 0.5
+anchor_bottom = 0.6412037
+offset_left = 14.0
+offset_top = 232.5
+offset_right = 404.0
+offset_bottom = 359.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../Credits")
+focus_neighbor_top = NodePath("../Configure")
+focus_neighbor_right = NodePath("../Credits")
+focus_neighbor_bottom = NodePath("../Configure")
+theme_override_fonts/font = ExtResource("5_dc4i4")
+theme_override_font_sizes/font_size = 72
+text = "Quit
+"
+
+[connection signal="pressed" from="MainMenuButtons/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="MainMenuButtons/Configure" to="." method="_on_configure_pressed"]
+[connection signal="pressed" from="MainMenuButtons/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="MainMenuButtons/Quit" to="." method="_on_quit_pressed"]

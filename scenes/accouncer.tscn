@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://b53llw31s5h2s"]
+
+[ext_resource type="Texture2D" uid="uid://cpusdfwrnbn2b" path="res://images/test_announcer.png" id="1_8fc2h"]
+[ext_resource type="Texture2D" uid="uid://craaognrco7p2" path="res://images/announcer_bubble.png" id="2_l1ifr"]
+[ext_resource type="Script" uid="uid://ogotri2lh410" path="res://scripts/accouncer.gd" id="2_yg8ps"]
+[ext_resource type="Script" uid="uid://icpqiak7voow" path="res://scripts/AutoFontSize.gd" id="3_l1ifr"]
+[ext_resource type="Texture2D" uid="uid://bdnr2m0mxe7rg" path="res://images/aios_announcer.png" id="3_uqi0e"]
+[ext_resource type="FontFile" uid="uid://daennn2iedjep" path="res://fonts/ubuntu_lowercase.ttf" id="4_kjktn"]
+
+[node name="TestAnnouncer" type="Sprite2D"]
+script = ExtResource("2_yg8ps")
+
+[node name="BaseAnnouncer" type="Sprite2D" parent="."]
+texture = ExtResource("1_8fc2h")
+
+[node name="SecretAnnouncer" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_uqi0e")
+
+[node name="AnnouncerBubble" type="Sprite2D" parent="."]
+visible = false
+z_index = 20
+position = Vector2(41, -437)
+texture = ExtResource("2_l1ifr")
+
+[node name="Label" type="Label" parent="AnnouncerBubble"]
+offset_left = -172.0
+offset_top = -109.0
+offset_right = 178.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_kjktn")
+theme_override_font_sizes/font_size = 48
+text = "Pick a question!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("3_l1ifr")
+minimum_size = 16
+maximum_size = 48

@@ -1,0 +1,142 @@
+[gd_scene load_steps=21 format=3 uid="uid://du3nbmbw4j4uf"]
+
+[ext_resource type="Script" uid="uid://dgs4fvvk1yoya" path="res://scripts/timer_sprite.gd" id="1_us8u6"]
+[ext_resource type="Texture2D" uid="uid://dlv6fo1ykclhr" path="res://images/timer_sprite.png" id="2_nmyd0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axv4u"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2os4o"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4vwv"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3jdy"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7w5i7"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pn5be"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fjw8"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(100, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mevk"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(200, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1ple"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(300, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvkgm"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(400, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pnxe"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(0, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rqqf"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(100, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cp6tf"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(200, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kjep"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(300, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6c0m"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(400, 200, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmu6x"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(0, 300, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1cxe"]
+atlas = ExtResource("2_nmyd0")
+region = Rect2(100, 300, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mdpkr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axv4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2os4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a4vwv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3jdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7w5i7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pn5be")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fjw8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mevk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1ple")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvkgm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pnxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rqqf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cp6tf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6kjep")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6c0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmu6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1cxe")
+}],
+"loop": false,
+"name": &"normaltimer",
+"speed": 30.0
+}]
+
+[node name="OnScreenTimer" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_us8u6")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+sprite_frames = SubResource("SpriteFrames_mdpkr")
+animation = &"normaltimer"

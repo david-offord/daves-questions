@@ -1,0 +1,10 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://cb0xru6d146yi"]
+
+[ext_resource type="FontFile" uid="uid://daennn2iedjep" path="res://fonts/ubuntu_lowercase.ttf" id="1_daspw"]
+
+[resource]
+base_font = ExtResource("1_daspw")
+variation_opentype = {
+2003265652: 300
+}
+variation_embolden = 1.0
