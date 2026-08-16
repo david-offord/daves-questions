@@ -1,5 +1,6 @@
 # Dave's Questions
-    Open source trivia game. Controller and keyboard supported only. Can be downloaded from Steam for free: https://store.steampowered.com/app/4484750/Daves_Questions/
+    Open source trivia game. Controller and keyboard supported only. Can be downloaded from 
+    Steam for free: https://store.steampowered.com/app/4484750/Daves_Questions/
 
 ## How to build:
     You should be able to load the project.godot with Godot 4.5 and build it from that.
