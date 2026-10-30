@@ -14,9 +14,13 @@ func _ready() -> void:
 	JeopardyGlobals.CURRENT_GAME_STATE = JeopardyGlobals.GameState.MAIN_MENU
 	$MainMenuButtons/StartGame.grab_focus()
 	SoundController.play_specific_music(SoundController.SpecificMusic.MainMenu)
+
+	call_deferred('grab_focus')
 	#if JeopardyGlobals.MINOR_DEBUG_MODE:
 	#	SteamController.set_achievement_achieved(SteamController.Achievements.dj)
 
+func grab_focus():
+	$MainMenuButtons/StartGame.grab_focus()
 
 func _on_start_game_pressed() -> void:
 	SoundController.play_sound_effect(SoundController.SoundEffects.RightAnswer)

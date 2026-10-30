@@ -1,0 +1,348 @@
+[gd_scene load_steps=6 format=3 uid="uid://2qivmnww8foo"]
+
+[ext_resource type="Script" uid="uid://8qhk337arstp" path="res://scenes/controller_configure_new.gd" id="1_yci6u"]
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="2_yci6u"]
+[ext_resource type="Script" uid="uid://icpqiak7voow" path="res://scripts/AutoFontSize.gd" id="3_m1vr4"]
+[ext_resource type="Texture2D" uid="uid://c25yk5uom3rwh" path="res://images/arrow_lr.png" id="4_d10xr"]
+[ext_resource type="FontVariation" uid="uid://br0tro10cdfpu" path="res://fonts/fig_400_weight.tres" id="4_m1vr4"]
+
+[node name="ControllerConfigurationNew" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yci6u")
+
+[node name="TextContainer" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 1921.0
+offset_bottom = 1072.0
+
+[node name="PlayerPressPrompt" type="Label" parent="TextContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -453.5
+offset_top = -321.5
+offset_right = 453.5
+offset_bottom = 321.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_yci6u")
+theme_override_font_sizes/font_size = 96
+text = "Player 1, press A on your controller!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("3_m1vr4")
+minimum_size = 72
+maximum_size = 200
+
+[node name="PressBToStop" type="Label" parent="TextContainer"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -277.0
+offset_right = 570.0
+offset_bottom = 113.0
+grow_vertical = 0
+rotation = -0.27576202
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.88321126, 0, 0.22113204, 1)
+theme_override_fonts/font = ExtResource("2_yci6u")
+theme_override_font_sizes/font_size = 72
+text = "Press B to finish configuration"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("3_m1vr4")
+maximum_size = 72
+
+[node name="CompPlayerNumberChoice" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HumanPlayerRow" type="Control" parent="CompPlayerNumberChoice"]
+layout_mode = 1
+anchor_top = 0.15185185
+anchor_right = 1.0
+anchor_bottom = 0.375
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftArrow" type="TextureRect" parent="CompPlayerNumberChoice/HumanPlayerRow" groups=["Arrows"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6197917
+anchor_top = 0.24481328
+anchor_right = 0.70208335
+anchor_bottom = 0.77178425
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_d10xr")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="HPLabel" type="Label" parent="CompPlayerNumberChoice/HumanPlayerRow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15833333
+anchor_top = 0.34024897
+anchor_right = 1.0
+anchor_bottom = 0.65975106
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_m1vr4")
+theme_override_font_sizes/font_size = 64
+text = "Human Players:"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HPValue" type="Label" parent="CompPlayerNumberChoice/HumanPlayerRow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.63854164
+anchor_top = 0.34024897
+anchor_right = 0.87083334
+anchor_bottom = 0.65975106
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_m1vr4")
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="RightArrow" type="TextureRect" parent="CompPlayerNumberChoice/HumanPlayerRow" groups=["Arrows"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8234375
+anchor_top = 0.24481334
+anchor_right = 0.8234375
+anchor_bottom = 0.24481334
+offset_left = 158.0
+offset_top = 126.999985
+offset_right = 316.0
+offset_bottom = 253.99998
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.1415927
+texture = ExtResource("4_d10xr")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="ComputerPlayerRow" type="Control" parent="CompPlayerNumberChoice"]
+layout_mode = 1
+anchor_top = 0.32685184
+anchor_right = 1.0
+anchor_bottom = 0.55
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CPULabel" type="Label" parent="CompPlayerNumberChoice/ComputerPlayerRow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15833333
+anchor_top = 0.34024897
+anchor_right = 1.0
+anchor_bottom = 0.65975106
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_m1vr4")
+theme_override_font_sizes/font_size = 64
+text = "Comp. Players:"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CPUValue" type="Label" parent="CompPlayerNumberChoice/ComputerPlayerRow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.63854164
+anchor_top = 0.34024897
+anchor_right = 0.87083334
+anchor_bottom = 0.65975106
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_m1vr4")
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftArrow" type="TextureRect" parent="CompPlayerNumberChoice/ComputerPlayerRow" groups=["Arrows"]]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6197917
+anchor_top = 0.24481328
+anchor_right = 0.70208335
+anchor_bottom = 0.77178425
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_d10xr")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="RightArrow" type="TextureRect" parent="CompPlayerNumberChoice/ComputerPlayerRow" groups=["Arrows"]]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8234375
+anchor_top = 0.24481334
+anchor_right = 0.8234375
+anchor_bottom = 0.24481334
+offset_left = 158.0
+offset_top = 126.999985
+offset_right = 316.0
+offset_bottom = 253.99998
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.1415927
+texture = ExtResource("4_d10xr")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="ComputerDifficulty" type="Control" parent="CompPlayerNumberChoice"]
+layout_mode = 1
+anchor_top = 0.49722221
+anchor_right = 1.0
+anchor_bottom = 0.72037035
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CPUDiffLabel" type="Label" parent="CompPlayerNumberChoice/ComputerDifficulty"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15833333
+anchor_top = 0.34024897
+anchor_right = 1.0
+anchor_bottom = 0.65975106
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_m1vr4")
+theme_override_font_sizes/font_size = 64
+text = "Comp. Difficulty:"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CPUDiffValue" type="Label" parent="CompPlayerNumberChoice/ComputerDifficulty"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.63854164
+anchor_top = 0.34024897
+anchor_right = 0.87083334
+anchor_bottom = 0.65975106
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_m1vr4")
+theme_override_font_sizes/font_size = 64
+text = "Easy"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftArrow" type="TextureRect" parent="CompPlayerNumberChoice/ComputerDifficulty" groups=["Arrows"]]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6197917
+anchor_top = 0.24481328
+anchor_right = 0.70208335
+anchor_bottom = 0.77178425
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_d10xr")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="RightArrow" type="TextureRect" parent="CompPlayerNumberChoice/ComputerDifficulty" groups=["Arrows"]]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8234375
+anchor_top = 0.24481334
+anchor_right = 0.8234375
+anchor_bottom = 0.24481334
+offset_left = 158.0
+offset_top = 126.999985
+offset_right = 316.0
+offset_bottom = 253.99998
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.1415927
+texture = ExtResource("4_d10xr")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonsRow" type="Control" parent="CompPlayerNumberChoice"]
+layout_mode = 1
+anchor_top = 0.71944445
+anchor_right = 1.0
+anchor_bottom = 0.9425926
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ReturnToTitle" type="Button" parent="CompPlayerNumberChoice/ButtonsRow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24947916
+anchor_top = 0.414938
+anchor_right = 0.47454193
+anchor_bottom = 0.86805034
+offset_right = 398.87952
+offset_bottom = 100.79993
+scale = Vector2(0.5200006, 0.5200006)
+theme_override_font_sizes/font_size = 72
+text = "Return to 
+title screen"
+metadata/_edit_use_anchors_ = true
+
+[node name="Start" type="Button" parent="CompPlayerNumberChoice/ButtonsRow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6078126
+anchor_top = 0.414938
+anchor_right = 0.8328753
+anchor_bottom = 0.86805034
+offset_right = 398.87952
+offset_bottom = 100.79993
+scale = Vector2(0.5200006, 0.5200006)
+theme_override_font_sizes/font_size = 72
+text = "Start!
+"
+metadata/_edit_use_anchors_ = true

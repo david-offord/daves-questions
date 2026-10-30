@@ -3,9 +3,16 @@ extends Sprite2D
 signal text_bubble_hidden
 
 func _ready() -> void:
-	if JeopardySaveData.custom_announcer:
-		$BaseAnnouncer.hide()
+	$BaseAnnouncer.hide()
+	$SecretAnnouncer.hide()
+	$JenKennings.hide()
+
+	if JeopardySaveData.announcer == 'Corporal Hundred legs':
 		$SecretAnnouncer.show()
+	elif JeopardySaveData.announcer == 'Jen Kennings':
+		$JenKennings.show()
+	else: # dave
+		$BaseAnnouncer.show()
 
 func show_text_bubble(text: String, show_for = 0.0):
 	$AnnouncerBubble/Label.text = text

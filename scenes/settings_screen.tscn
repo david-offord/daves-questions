@@ -216,9 +216,9 @@ maximum_size = 48
 [node name="MusicVolume" type="Control" parent="MainMenuButtons"]
 anchors_preset = 0
 offset_left = 64.0
-offset_top = 700.0
+offset_top = 663.0
 offset_right = 1872.0
-offset_bottom = 811.0
+offset_bottom = 774.0
 metadata/_edit_group_ = true
 
 [node name="Label" type="Label" parent="MainMenuButtons/MusicVolume"]
@@ -276,22 +276,87 @@ vertical_alignment = 1
 script = ExtResource("4_pt01f")
 maximum_size = 48
 
+[node name="Announcer" type="Control" parent="MainMenuButtons"]
+anchors_preset = 0
+offset_left = 64.0
+offset_top = 795.0
+offset_right = 1872.0
+offset_bottom = 906.0
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="MainMenuButtons/Announcer"]
+custom_minimum_size = Vector2(750, 0)
+layout_mode = 0
+offset_top = -1.0
+offset_right = 750.0
+offset_bottom = 99.5
+theme_override_fonts/font = ExtResource("5_n20dh")
+theme_override_font_sizes/font_size = 72
+text = "Announcer"
+
+[node name="LeftArrow" type="TextureRect" parent="MainMenuButtons/Announcer" groups=["Arrows"]]
+visible = false
+layout_mode = 0
+offset_left = 727.0
+offset_right = 827.0
+offset_bottom = 100.0
+texture = ExtResource("2_qrqa7")
+expand_mode = 2
+stretch_mode = 4
+flip_h = true
+
+[node name="Value" type="Label" parent="MainMenuButtons/Announcer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 0
+offset_left = 858.0
+offset_right = 1658.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("5_n20dh")
+theme_override_font_sizes/font_size = 64
+text = "Dave"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightArrow" type="TextureRect" parent="MainMenuButtons/Announcer" groups=["Arrows"]]
+visible = false
+layout_mode = 0
+offset_left = 1742.0
+offset_right = 1842.0
+offset_bottom = 100.0
+texture = ExtResource("2_qrqa7")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="SettingText" type="Label" parent="MainMenuButtons/Announcer"]
+custom_minimum_size = Vector2(750, 0)
+layout_mode = 0
+offset_top = 106.0
+offset_right = 1809.0
+offset_bottom = 180.5
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_pt01f")
+maximum_size = 48
+
 [node name="ReturnToTitle" type="Button" parent="MainMenuButtons"]
 layout_mode = 0
-offset_left = 72.0
-offset_top = 839.0
-offset_right = 903.0
-offset_bottom = 1049.0
+offset_left = 225.99998
+offset_top = 950.0
+offset_right = 1057.0
+offset_bottom = 1160.0
+scale = Vector2(0.5200006, 0.5200006)
 theme_override_font_sizes/font_size = 72
 text = "Return to 
 title screen"
 
 [node name="CreateQuestionSets" type="Button" parent="MainMenuButtons"]
 layout_mode = 0
-offset_left = 1113.0
-offset_top = 838.0
-offset_right = 1857.0
-offset_bottom = 1048.0
+offset_left = 1267.0
+offset_top = 949.0
+offset_right = 2011.0
+offset_bottom = 1159.0
+scale = Vector2(0.5200006, 0.5200006)
 theme_override_font_sizes/font_size = 72
 text = "Create Question Sets From CSVs"
 autowrap_mode = 3

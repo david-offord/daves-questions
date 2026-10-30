@@ -55,10 +55,17 @@ func open_controller_configuration():
 	current_game_scene = new_scene
 	#connect the signal
 	new_scene.all_controllers_configured.connect(controller_configuration_completed)
+	new_scene.backout_of_config.connect(backout_of_controller_config)
 	print_debug('Added it to the game scene.');
 	#add it to the scene
 	add_child(current_game_scene)
 
+func backout_of_controller_config():
+	if current_game_scene != null:
+		current_game_scene.queue_free()
+
+	return_to_title()
+	$TitleScreen/MainMenuButtons/StartGame.grab_focus()
 
 func controller_configuration_completed():
 	print_debug('Deleting controller configuration and beginning game.');

@@ -158,7 +158,6 @@ func _process(delta: float) -> void:
 	if held_button_2_perc < 0.0:
 		held_button_2_perc = 0.0
 	
-	#bro this shit sucks lmfao
 	#so i have to do this because im scaling the parent for a mask
 	#which is dumb
 	#and then I have to basically move the child around a little bit

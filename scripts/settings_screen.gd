@@ -28,9 +28,11 @@ var custom_questions_locations = {
 var speed_options = ['0.5x', '1x', '1.5x', '2x']
 var se_options = []
 
+var announcer_options = ['Dave', 'Jen Kennings', 'Corporal Hundred Legs']
+
 #positions of buttons
-var RETURN_TO_TITLE_BUTTON_POS = 4
-var CREATE_QUESTIONS_BUTTON_POS = 5
+var RETURN_TO_TITLE_BUTTON_POS = 5
+var CREATE_QUESTIONS_BUTTON_POS = 6
 
 #variables for selecting and moving
 var current_option_position = 0
@@ -43,7 +45,8 @@ var current_value = {
 	0: 0,
 	1: 2,
 	2: 20,
-	3: 20
+	3: 20,
+	4: 0
 }
 
 var past_8_inputs := []
@@ -57,6 +60,7 @@ func _ready() -> void:
 		1: $MainMenuButtons/SlowModeRow/Value,
 		2: $MainMenuButtons/SoundEffects/Value,
 		3: $MainMenuButtons/MusicVolume/Value,
+		4: $MainMenuButtons/Announcer/Value,
 		RETURN_TO_TITLE_BUTTON_POS: $MainMenuButtons/ReturnToTitle,
 		CREATE_QUESTIONS_BUTTON_POS: $MainMenuButtons/CreateQuestionSets,
 	}
@@ -80,6 +84,13 @@ func _ready() -> void:
 	option_iter = se_options.find(JeopardySaveData.me_volume)
 	current_value[3] = option_iter if option_iter != -1 else (len(se_options) - 1)
 
+	#announcer shit
+	if JeopardySaveData.announcer in announcer_options:
+		current_value[4] = announcer_options.find(JeopardySaveData.announcer)
+	else:
+		current_value[4] = 0
+
+
 	print(OS.get_user_data_dir())
 
 	initialize_setting_values()
@@ -87,6 +98,7 @@ func _ready() -> void:
 
 #look man, this was a mistake alright, i can admit it myself. im embarassed. but im like basically done with this project
 #so im just gonna fart this out and make a work around here lmfao
+#brooooo, now that I have to come back here and fix this :/ embarassing
 func _input(event):
 	#all for secret announcer
 	if event.is_action_pressed("move_cursor_down"):
@@ -165,6 +177,7 @@ func initialize_setting_values():
 	button_by_option_position[1].text = speed_options[current_value[1]]
 	button_by_option_position[2].text = '%d%%' % se_options[current_value[2]]
 	button_by_option_position[3].text = '%d%%' % se_options[current_value[3]]
+	button_by_option_position[4].text = announcer_options[current_value[4]]
 
 	#change the text on load
 	if button_by_option_position[current_option_position].text == 'MDFD Questions':
@@ -206,11 +219,20 @@ func change_setting_value(right):
 			JeopardySaveData.se_volume = se_options[current_value[2]]
 		if current_option_position == 3:
 			SoundController.adjust_volume_of_me(se_options[current_value[current_option_position]])
-
+			
+	#bro what the FUCK was i doing lmfaoooo
+	#at least you know this wasn't ai lmfaooo
+	#"developer brought to tears by seeing code so bad, he knows it had to be made by a human"
 	if current_option_position == 4:
-		current_option_position = 5
-	elif current_option_position == 5:
-		current_option_position = 4
+		current_value[current_option_position] += 1 if right else -1
+		current_value[current_option_position] = wrapi(current_value[current_option_position], 0, len(announcer_options))
+		button_by_option_position[current_option_position].text = announcer_options[current_value[current_option_position]]
+
+
+	if current_option_position == RETURN_TO_TITLE_BUTTON_POS:
+		current_option_position = CREATE_QUESTIONS_BUTTON_POS
+	elif current_option_position == CREATE_QUESTIONS_BUTTON_POS:
+		current_option_position = RETURN_TO_TITLE_BUTTON_POS
 
 	SoundController.play_sound_effect(SoundController.SoundEffects.MenuMove)
 
@@ -222,6 +244,8 @@ func completed_settings():
 	JeopardySaveData.time_modifier = speed_options[current_value[1]]
 	JeopardySaveData.se_volume = se_options[current_value[2]]
 	JeopardySaveData.me_volume = se_options[current_value[3]]
+	JeopardySaveData.me_volume = se_options[current_value[3]]
+	JeopardySaveData.announcer = announcer_options[current_value[4]]
 
 	if JeopardySaveData.me_volume == 0:
 		SteamController.set_achievement_achieved(SteamController.Achievements.i_hate_bossa_nova)

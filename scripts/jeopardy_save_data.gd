@@ -6,6 +6,7 @@ var jeopardy_set_custom_location = ''
 var time_modifier = '1x'
 var se_volume = 100
 var me_volume = 100
+var announcer = 'Dave'
 
 #so categories dont repeat
 var categories_seen = []
@@ -38,6 +39,7 @@ func save_to_file():
 	file.store_16(me_volume)
 	file.store_pascal_string(jeopardy_set_custom_location)
 	file.store_8(custom_announcer)
+	file.store_pascal_string(announcer)
 
 func load_from_file():
 	var file := FileAccess.open(SAVE_FILE_LOCATION, FileAccess.READ)
@@ -55,5 +57,6 @@ func load_from_file():
 	me_volume = file.get_16()
 	jeopardy_set_custom_location = file.get_pascal_string()
 	custom_announcer = file.get_8()
+	announcer = file.get_pascal_string()
 
 	print(jeopardy_set_custom_location)
