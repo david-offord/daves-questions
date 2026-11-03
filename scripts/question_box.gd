@@ -1,4 +1,4 @@
-extends Node2D
+class_name QuestionBox extends Node2D
 
 @export var question_text: String
 @export var correct_answer: String
@@ -10,6 +10,9 @@ extends Node2D
 
 var currently_selected = false
 var disabled = false
+
+var x_pos = 0
+var y_pos = 0
 
 func init_question(qt, ca, wa1, wa2, score, category_header = false, dd = false):
 	question_text = qt

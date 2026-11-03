@@ -53,6 +53,9 @@ var scoreboard_object: Node = null
 
 const QUESTION_TEXT_Y_OFFSET = 30
 
+#CPU BS
+var cpu_timers: Array[Timer] = []
+var guessed_answers: Array[int] = []
 
 func _ready() -> void:
 	current_state = AnsweringState.WAITING_FOR_A
@@ -103,6 +106,8 @@ func initialize_questions(question,
 
 
 	parent_announcer = announcer
+	#set up any cpu stuff
+	cpu_buzz_in_pre_processing(how_long_to_wait)
 
 ##show the buzzer and create a timer
 func show_buzzer_button():
@@ -225,7 +230,8 @@ func answer_question(answer_id: int):
 	held_button_0_perc = 0; held_button_1_perc = 0; held_button_2_perc = 0;
 	
 	#get rid of the timer
-	onscreen_timer.queue_free()
+	if onscreen_timer != null:
+		onscreen_timer.queue_free()
 	
 	#so they cant input anything for a minute
 	current_state = AnsweringState.ANIMATING
@@ -331,8 +337,11 @@ func continue_after_wrong_answer(who_got_it_wrong):
 	
 	#then wait a bit before showing the button again
 	current_state = AnsweringState.WAITING_FOR_A
-	await get_tree().create_timer(randf_range(.3, .6)).timeout
-	show_buzzer_button()
+	var how_long_to_wait = randf_range(.3, .6)
+	time_before_showing = get_tree().create_timer(how_long_to_wait)
+	time_before_showing.connect('timeout', show_buzzer_button)
+
+	cpu_buzz_in_pre_processing(how_long_to_wait)
 
 
 func nobody_answered():
@@ -350,6 +359,11 @@ func daily_double_player_buzz_in():
 
 func player_buzzed_in(device_int: int):
 	print('Controller %s buzzed in.' % [device_int])
+
+	#immediately kill the cpu things
+	for item in cpu_timers:
+		item.stop()
+		item.queue_free()
 	
 	#delete the timer
 	if onscreen_timer != null:
@@ -387,6 +401,10 @@ func player_buzzed_in(device_int: int):
 	
 	current_state = AnsweringState.WAITING_FOR_ANSWER
 	create_timer_for_picking_an_answer()
+
+	#do the CPU shit
+	if JeopardyGlobals.player_id_to_is_cpu[device_int]:
+		cpu_answer_question_preprocessing(device_int)
 
 func show_final_jeopardy_answers():
 	print('Final jeopardy answers shown')
@@ -480,3 +498,119 @@ func create_timer_for_picking_an_answer(time = 20):
 	onscreen_timer.begin_timer()
 	onscreen_timer.time_ran_out.connect(answered_wrong.bind(true))
 	$TimerLocation.add_child(onscreen_timer)
+
+##Called when a chance to buzz in
+func cpu_buzz_in_pre_processing(time_to_buzzer: float):
+	#for every player
+	for comp in JeopardyGlobals.player_id_to_is_cpu.keys():
+		if comp in disabled_players:
+			print_debug('Player %d was disabled so noo timers are going.' % [comp + 1])
+			continue
+
+		#if theyre a human, skip this
+		if JeopardyGlobals.player_id_to_is_cpu[comp] == false:
+			continue
+
+		#TODO: THIS check if they even "know it"
+
+
+		#choose a time range
+		var min := 1.0
+		var max := 5.0
+		match JeopardySaveData.default_comp_diff:
+			JeopardyGlobals.EASY_CPU_DIFFFICULTY:
+				min = 1
+				max = 6
+
+				#basically make em buzz in too early
+				if randi_range(1, 101) < 30:
+					min = -0.5
+					max = -0.1
+			JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
+				min = .75
+				max = 4.0
+				
+				#basically make em buzz in too early
+				if randi_range(1, 101) < 15:
+					min = -0.5
+					max = -0.1
+			JeopardyGlobals.HARD_CPU_DIFFFICULTY:
+				min = .5
+				max = 3.0
+				
+				if randi_range(1, 101) < 5:
+					min = -0.5
+					max = -0.1
+				
+		#make a timer
+		var time_to_wait := time_to_buzzer + randf_range(min, max)
+		print_debug('Player %d waiting %d seconds.' % [comp + 1, time_to_wait])
+		var c_timer = get_tree().create_timer(time_to_wait)
+		c_timer.timeout.connect(cpu_buzz_in.bind(comp))
+		cpu_timers.append(c_timer)
+
+func cpu_buzz_in(player_id: int):
+	if current_state == AnsweringState.WAITING_FOR_A and player_id not in disabled_players:
+		temporarily_disable_player(player_id)
+		#create a new timer
+		var time_to_wait: float = JeopardyGlobals.HOW_LONG_TO_STUN_ON_EARLY_BUZZ + randf_range(.5, 2)
+		print_debug('Player %d waiting %d seconds after to early buzz in.' % [player_id + 1, time_to_wait])
+
+		var c_timer = get_tree().create_timer(time_to_wait)
+		c_timer.timeout.connect(cpu_buzz_in.bind(player_id))
+		cpu_timers.append(c_timer)
+
+		return
+			
+	#whoever buzzs in first
+	if current_state == AnsweringState.WAITING_FOR_SOMEONE_TO_BUZZ:
+		if player_id not in disabled_players:
+			player_buzzed_in(player_id)
+
+func cpu_answer_question_preprocessing(player_id: int):
+	var correct = false
+	var select_index = -1
+
+	#check if they got it correct
+	match JeopardySaveData.default_comp_diff:
+		JeopardyGlobals.EASY_CPU_DIFFFICULTY:
+			if randi_range(1, 101) < 60:
+				correct = true
+
+		JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
+			if randi_range(1, 101) < 75:
+				correct = true
+
+		JeopardyGlobals.HARD_CPU_DIFFFICULTY:
+			if randi_range(1, 101) < 95:
+				correct = true
+
+	#i.e. 2 people were already wrong
+	if len(guessed_answers) == 2:
+		correct = true
+
+	#if correct, give em the right index
+	if correct:
+		select_index = correct_answer_int
+	else:
+		#otherwise give em a different one
+		#and yes, im sure theres a better way to do this. tell the twerps
+		#in the steam reviews that too. it works, so shut up
+		var poss = [0, 1, 2]
+		poss.shuffle()
+		poss.remove_at(poss.find(correct_answer_int))
+
+		select_index = poss[0]
+		if select_index in guessed_answers:
+			select_index = poss[1]
+
+	print_debug('%s, %d' % [str(correct), select_index])
+
+	await get_tree().create_timer(randf_range(.75, 3)).timeout
+
+	if select_index == 0:
+		button_0_being_held = true
+	if select_index == 1:
+		button_1_being_held = true
+	if select_index == 2:
+		button_2_being_held = true

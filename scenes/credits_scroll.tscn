@@ -10,7 +10,7 @@ script = ExtResource("1_r0nrg")
 offset_left = 448.0
 offset_top = 1076.0
 offset_right = 1493.0
-offset_bottom = 3816.0
+offset_bottom = 4179.0
 theme_override_fonts/normal_font = ExtResource("1_oql5p")
 theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 64
@@ -50,7 +50,14 @@ menu_target – ZeltBolt
 Wrong answer. – SgtPepperArc360
 1950s_Soviet_Krautrock_SubmarinePing_2(singlenote)-012.wav – Hewn.Marrow
 Casinosfx 001 – modusmogulus
-[/font_size]"
+[/font_size]
+[font_size=56]
+Special thanks to:
+the knobs in the steam reviews, who
+convinced me to make this marginally
+better. i salute you, internet whiners
+
+May you someday be lifted to sentience[/font_size]"
 autowrap_mode = 2
 horizontal_alignment = 1
 

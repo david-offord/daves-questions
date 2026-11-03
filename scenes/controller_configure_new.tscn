@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c25yk5uom3rwh" path="res://images/arrow_lr.png" id="4_d10xr"]
 [ext_resource type="FontVariation" uid="uid://br0tro10cdfpu" path="res://fonts/fig_400_weight.tres" id="4_m1vr4"]
 
-[node name="ControllerConfigurationNew" type="Control"]
+[node name="ControllerConfigurationNew" type="Control" node_paths=PackedStringArray("press_a_area", "comp_choices_menu", "controller_config_prompt")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,8 +14,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yci6u")
+press_a_area = NodePath("PressAEtc")
+comp_choices_menu = NodePath("CompPlayerNumberChoice")
+controller_config_prompt = NodePath("PressAEtc/PlayerPressPrompt")
 
-[node name="TextContainer" type="Control" parent="."]
+[node name="PressAEtc" type="Control" parent="."]
 visible = false
 anchors_preset = 0
 offset_left = 2.0
@@ -23,7 +26,7 @@ offset_top = 2.0
 offset_right = 1921.0
 offset_bottom = 1072.0
 
-[node name="PlayerPressPrompt" type="Label" parent="TextContainer"]
+[node name="PlayerPressPrompt" type="Label" parent="PressAEtc"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -38,31 +41,28 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_yci6u")
-theme_override_font_sizes/font_size = 96
+theme_override_font_sizes/font_size = 128
 text = "Player 1, press A on your controller!"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
-script = ExtResource("3_m1vr4")
-minimum_size = 72
-maximum_size = 200
 
-[node name="PressBToStop" type="Label" parent="TextContainer"]
+[node name="PressBToStop" type="Label" parent="PressAEtc"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = -277.0
-offset_right = 570.0
-offset_bottom = 113.0
+offset_left = -102.999985
+offset_top = -213.0
+offset_right = 465.0
+offset_bottom = 177.0
 grow_vertical = 0
 rotation = -0.27576202
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.88321126, 0, 0.22113204, 1)
 theme_override_fonts/font = ExtResource("2_yci6u")
 theme_override_font_sizes/font_size = 72
-text = "Press B to finish configuration"
+text = "B/Z to back out"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3

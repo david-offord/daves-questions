@@ -7,7 +7,7 @@ func _ready() -> void:
 	$SecretAnnouncer.hide()
 	$JenKennings.hide()
 
-	if JeopardySaveData.announcer == 'Corporal Hundred legs':
+	if JeopardySaveData.announcer == 'Corporal Hundred Legs':
 		$SecretAnnouncer.show()
 	elif JeopardySaveData.announcer == 'Jen Kennings':
 		$JenKennings.show()

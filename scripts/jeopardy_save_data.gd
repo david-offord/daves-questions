@@ -16,6 +16,11 @@ var total_money_earned = 0
 var total_money_lost = 0
 var total_buzzes = 0
 
+#default cpu/player values
+var default_player_amts = 2
+var default_comp_amts = 1
+var default_comp_diff = 'Medium'
+
 var custom_announcer = false
 
 var SAVE_FILE_LOCATION = "user://jeopardy_save.dat"
@@ -40,6 +45,10 @@ func save_to_file():
 	file.store_pascal_string(jeopardy_set_custom_location)
 	file.store_8(custom_announcer)
 	file.store_pascal_string(announcer)
+	file.store_8(default_player_amts)
+	file.store_8(default_comp_amts)
+	file.store_pascal_string(default_comp_diff)
+	
 
 func load_from_file():
 	var file := FileAccess.open(SAVE_FILE_LOCATION, FileAccess.READ)
@@ -58,5 +67,13 @@ func load_from_file():
 	jeopardy_set_custom_location = file.get_pascal_string()
 	custom_announcer = file.get_8()
 	announcer = file.get_pascal_string()
+	default_player_amts = file.get_8()
+	default_comp_amts = file.get_8()
+	default_comp_diff = file.get_pascal_string()
+
+	if default_comp_diff == '':
+		default_player_amts = 2
+		default_comp_amts = 1
+		default_comp_diff = 'Medium'
 
 	print(jeopardy_set_custom_location)

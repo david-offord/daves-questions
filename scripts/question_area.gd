@@ -82,9 +82,6 @@ func _ready() -> void:
 	JeopardyGlobals.set_up_player_money()
 
 	print_debug('Question area spawned and starting.');
-	#if JeopardyGlobals.MINOR_DEBUG_MODE:
-	#	is_in_double_jeopardy = true
-	#	JeopardyGlobals.money_by_player[1] = -200
 
 	#get number of columns based on the number of headers
 	var column_num_nodes = get_tree().get_nodes_in_group('category_header')
@@ -211,6 +208,9 @@ func spawn_questions():
 			#true if JeopardyGlobals.DEBUG_MODE else i == double_jeopardy_iter
 		)
 		
+		question_box.x_pos = col
+		question_box.y_pos = row
+
 		#add it to the scene
 		qmark.add_child(question_box)
 		
@@ -236,6 +236,10 @@ func spawn_questions():
 	
 	#create a timer
 	create_timer_for_selecting_question()
+
+	if JeopardyGlobals.CPU_TESTING:
+		cpu_turn_to_pick_question()
+
 
 func _input(event: InputEvent) -> void:
 	var is_keyboard_input = event is InputEventKey or event is InputEventMouse
@@ -277,6 +281,9 @@ func _input(event: InputEvent) -> void:
 		
 ##when a player picks a question
 func selected_question():
+	if JeopardyGlobals.CURRENT_GAME_STATE != JeopardyGlobals.GameState.GAMEBOARD or current_state != QUESTION_AREA_STATES.WAITING_FOR_SELECTION:
+		return
+
 	print_debug('Someone selected a question.');
 	is_in_daily_double = false
 	currently_shown_question = question_box_array[current_position_x][current_position_y]
@@ -315,6 +322,8 @@ func selected_question():
 	
 ##move the cursor around and what not
 func move_selection(direction):
+	if JeopardyGlobals.CURRENT_GAME_STATE != JeopardyGlobals.GameState.GAMEBOARD or current_state != QUESTION_AREA_STATES.WAITING_FOR_SELECTION:
+		return
 	var current_selection = question_box_array[current_position_x][current_position_y]
 	if direction == 'right':
 		current_position_x = current_position_x + 1
@@ -489,6 +498,12 @@ func question_picking_time_up():
 	
 	create_timer_for_selecting_question()
 	current_state = QUESTION_AREA_STATES.WAITING_FOR_SELECTION
+
+	
+	#if this is a cpu player (likely not, but hey who tf knows)
+	if JeopardyGlobals.player_id_to_is_cpu[current_player_selecting]:
+		print('THIS IS A CPU PLAYER!!!')
+		cpu_turn_to_pick_question()
 
 ##Does all things associated with changing who is currently selecting a question
 func set_player_as_active_selector(player_id: int):
@@ -789,3 +804,57 @@ func final_jeopardy_answer_lock_in(player_id: int, answer: String, was_correct =
 func create_final_score(no_winners = false):
 	print_debug('Emitting that we need to go to the final score.');
 	going_to_final_score.emit(no_winners)
+
+
+#BEGIN CPU NIGHTMARE
+func cpu_turn_to_pick_question():
+	#first get a question based on the difficulty
+	var difficulty: String = JeopardySaveData.default_comp_diff
+
+	var possible_questions = []
+	for i in range(0, NUMBER_OF_COLUMNS):
+		for qb in question_box_array[i]:
+			if question_box_array[i][qb].disabled == false:
+				possible_questions.append(question_box_array[i][qb])
+
+	var selected_question: QuestionBox
+
+	if difficulty == JeopardyGlobals.EASY_CPU_DIFFFICULTY:
+		#pick a completely random one
+		selected_question = possible_questions.pick_random() as QuestionBox
+	else:
+		possible_questions.sort_custom(func(a, b):
+			return a.score_amount > b.score_amount
+			)
+		selected_question = possible_questions[0]
+
+	print(selected_question.question_text)
+	print(selected_question.score_amount)
+	print(selected_question.is_daily_double)
+
+	#now get the order to move to this question based on current position
+	var x_spaces = selected_question.x_pos - current_position_x
+	var y_spaces = selected_question.y_pos - current_position_y
+
+	#build an array of movements
+	var movements: Array[String] = []
+	for i in range(0, abs(x_spaces)):
+		if x_spaces < 0:
+			movements.append('left')
+		else:
+			movements.append('right')
+
+	for i in range(0, abs(y_spaces)):
+		if y_spaces < 0:
+			movements.append('up')
+		else:
+			movements.append('down')
+
+	#move the cursor around
+	movements.shuffle()
+	for move in movements:
+		move_selection(move)
+		await get_tree().create_timer(.3).timeout
+
+	#select the question
+	selected_question()

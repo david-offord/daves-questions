@@ -9,6 +9,13 @@ func _ready() -> void:
 		get_node('Player2Board').hide()
 		get_node('Player3Board').hide()
 
+	#change names on scoreboard if they are a cpu
+	for i in JeopardyGlobals.player_id_to_is_cpu.keys():
+		if JeopardyGlobals.player_id_to_is_cpu[i]:
+			get_node('Player%dBoard/Title' % [i + 1]).text = 'CPU %d' % [i + 1]
+		else:
+			get_node('Player%dBoard/Title' % [i + 1]).text = 'Player %d' % [i + 1]
+	
 func update_score(player_id: int):
 	print_debug('Updating the score on the scoreboard for player %d' % player_id);
 	if player_id not in JeopardyGlobals.money_by_player:

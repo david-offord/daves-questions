@@ -2,14 +2,15 @@ extends Node
 
 #DEBUG STUFF
 var DEBUG_MODE = false # general state changes, skipping entire sections of game - only used for testing specific features
-var MINOR_DEBUG_MODE = true # smaller changes (i.e. number of questions to do before state change)
+var MINOR_DEBUG_MODE = false # smaller changes (i.e. number of questions to do before state change)
 var ACHIEVEMENT_DEBUGGING = false # shows a thing saying steam would have unlocked an achievement
 var FIRST_QUESTION_ALWAYS_DAILY_DOUBLE = false # stops shuffling of questions at start of round, and makes the first 1 (or 2) the daily double
 var DEBUG_ALL_QUESTIONS_DAILY_DOUBLE = false # turn all questions into daily doubles
 var DEBUG_DEMO_PURPOSES = false # allows this to be played with only the keyboard
-var SINGLEPLAYER_TESTING = true # allows one person to use the same controller for 2 plaers
+var SINGLEPLAYER_TESTING = false # allows one person to use the same controller for 2 plaers
 var VERBOSE_LOGGING = false # for testing, logs more detailed things about player controller input
 var EXTREMELY_VERBOSE_LOGGING = false # extremely verbose, literally logging every input made on a global level
+var CPU_TESTING = true # debugging for CPU developmentl
 var FORCE_QUESTION_TIME = 2.0 # time to make a question read time, if MINOR_DEBUG_MODE is enabled
 
 #this is set and displayed if there was an issue loading the db file 
@@ -29,6 +30,9 @@ enum GameState {
 	}
 	
 var CURRENT_GAME_STATE = GameState.GAMEBOARD
+var EASY_CPU_DIFFFICULTY = "Easy"
+var MEDIUM_CPU_DIFFFICULTY = "Medium"
+var HARD_CPU_DIFFFICULTY = "Hard"
 
 #PACKED SCENES USED EVERYWHERE
 var TIMER_SCENE = preload("res://scenes/on_screen_timer_new.tscn")
@@ -46,6 +50,20 @@ var player_id_by_device_guid = {
 	0: '',
 	1: '',
 }
+
+var player_id_to_is_cpu = {
+	0: false
+}
+
+##Returns if there is a single CPU
+var cpu_game:
+	get:
+		for p in player_id_to_is_cpu.keys():
+			if player_id_to_is_cpu[p]:
+				return true
+		
+		return false
+
 
 var player_to_ever_negative = {
 	0: '',
@@ -207,12 +225,16 @@ func player_sort_algo(a: Dictionary, b: Dictionary) -> bool:
 #	mo = 
 
 func set_player_id_and_guid(player_id: int, controller_id: int, is_keyboard = false):
-	print(is_keyboard)
 	number_of_players += 1
 	player_id_by_device_guid[player_id] = '%d_%s' % [controller_id, is_keyboard]
-	print('%d_%s' % [controller_id, is_keyboard])
-	
+	player_id_to_is_cpu[player_id] = false
 	money_by_player[player_id] = 0
+
+func set_cpu_id_and_guid(cpu_id: int):
+	number_of_players += 1
+	player_id_by_device_guid[cpu_id] = 'cpu_%d' % [cpu_id, ]
+	player_id_to_is_cpu[cpu_id] = true
+	money_by_player[cpu_id] = 0
 
 ##get the id of the player based on the controller guid
 func get_player_id_by_guid(cont_id, is_keyboard = false):
