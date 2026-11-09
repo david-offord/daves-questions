@@ -343,7 +343,7 @@ func set_controller_config(cont_id: int, is_keyboard = false):
 		all_players_configured()
 		return
 				
-	controller_config_prompt.text = 'Player %d, Press A On Your Controller!' % (current_controller_configuring + 1)
+	controller_config_prompt.text = 'Player %d, Press A/Space On Your Controller!' % (current_controller_configuring + 1)
 	current_controller_state = ControllerConfigureState.WAITING_FOR_A
 
 

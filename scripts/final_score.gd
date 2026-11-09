@@ -78,7 +78,6 @@ func begin_final_score_show():
 		$FinaleAnnouncer.show_text_bubble("And that was %s!" % ('correct' if was_correct else 'incorrect'), 2)
 		await $FinaleAnnouncer.text_bubble_hidden
 
-		#TODO: THIS crashes lol, saying player 0 does not have a bet in "last_bet_by_player"
 		assert(player in last_bet_by_player, 'Player %d should have an entry in last_bet_by_player, yet does not.' % player)
 		if player not in last_bet_by_player:
 			last_bet_by_player[player] = 0

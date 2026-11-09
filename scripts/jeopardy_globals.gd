@@ -10,7 +10,7 @@ var DEBUG_DEMO_PURPOSES = false # allows this to be played with only the keyboar
 var SINGLEPLAYER_TESTING = false # allows one person to use the same controller for 2 plaers
 var VERBOSE_LOGGING = false # for testing, logs more detailed things about player controller input
 var EXTREMELY_VERBOSE_LOGGING = false # extremely verbose, literally logging every input made on a global level
-var CPU_TESTING = true # debugging for CPU developmentl
+var CPU_TESTING = false # debugging for CPU developmentl
 var FORCE_QUESTION_TIME = 2.0 # time to make a question read time, if MINOR_DEBUG_MODE is enabled
 
 #this is set and displayed if there was an issue loading the db file 
@@ -275,3 +275,8 @@ func format_scoreboard_currency(number_int: int) -> String:
 
 	var formatted := format_currency(number_int)
 	return ('-' if is_negative else '') + formatted
+
+
+##Takes chance, and gives you whether or not the dice gods give you a true
+func dice_roll(chance: float) -> bool:
+	return randf_range(1.0, 100.0) < chance

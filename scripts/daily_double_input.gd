@@ -54,6 +54,17 @@ func initialize(player_specific = -1, disallowed_players = [], is_in_double_jeop
 		if JeopardyGlobals.number_of_players == 2:
 			player_can_interact[2] = false
 
+	#do the ai logic here
+	for pid in player_can_interact.keys():
+		if pid not in JeopardyGlobals.player_id_to_is_cpu:
+			continue
+
+		if player_can_interact[pid] == false:
+			continue
+
+		if JeopardyGlobals.player_id_to_is_cpu[pid] or (JeopardyGlobals.CPU_TESTING):
+			call_deferred("process_ai_logic", pid)
+
 
 func _ready() -> void:
 	#get a list of all player sections
@@ -248,3 +259,83 @@ func get_labels_by_player_id(player_id: int):
 			player_labels.append(label)
 
 	return player_labels
+
+func process_ai_logic(player_id):
+	#get the amount to bet
+	var curr_money = JeopardyGlobals.money_by_player[player_id]
+	var bet_amt = 0
+	#if theyre down so catastrophic they only have 100, dont bet
+	if curr_money > 100:
+		match JeopardySaveData.default_comp_diff:
+			JeopardyGlobals.EASY_CPU_DIFFFICULTY:
+				#check if they go all in for the hell of it
+				if JeopardyGlobals.dice_roll(50):
+					bet_amt = curr_money
+				else:
+					#basically bet a random amount
+					bet_amt = randi_range(1, curr_money + 1)
+
+			JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
+				#check if they go all in for the hell of it
+				if JeopardyGlobals.dice_roll(30):
+					bet_amt = curr_money
+				else:
+					#never in a million years will I understand why I need to do this
+					#this is not something to warn me over - this is very intentional godot
+					@warning_ignore("integer_division")
+					bet_amt = randi_range(curr_money / 2, curr_money + 1)
+
+			JeopardyGlobals.HARD_CPU_DIFFFICULTY:
+				pass
+		#if this is near max money (i.e. 57 and their max is 65)
+		if bet_amt + 10 >= curr_money:
+			bet_amt = curr_money
+		else:
+			bet_amt = floori(bet_amt)
+	else:
+		if can_player_overbet:
+			if double_jeopardy:
+				bet_amt = 2000
+			else:
+				bet_amt = 1000
+
+
+	#bet is determined, so now do the input lol
+	#i forgot how fucking stupid this method of putting inputs in was lmfao
+	#but also Im just gonna do it again
+	var movements: Array[String] = []
+	var str_value = str(bet_amt) # ex 127
+	str_value = str_value.reverse() # now 721
+	var chars = str_value.split("") # now [7,2,1]
+
+	#this may be legitimately one of the stupidest things i have ever programmed
+	#for every digit
+	for character in chars:
+		#get the in value
+		var intval = int(character)
+		#if its more than 5 go backwards
+		if intval > 5:
+			var moves = 10 - intval
+			for m in range(moves):
+				movements.append("down")
+		#else go up
+		elif intval > 0:
+			for m in range(intval):
+				movements.append("up")
+		#move left 
+		movements.append('left')
+
+	movements.pop_back()
+
+	await get_tree().create_timer(1).timeout
+
+	for move in movements:
+		if move == "left" or move == "right":
+			move_cursor_left_right(player_id, move)
+		else:
+			change_value(player_id, move)
+
+		await get_tree().create_timer(.3).timeout
+	
+	await get_tree().create_timer(.7).timeout
+	confirm_player_value(player_id)

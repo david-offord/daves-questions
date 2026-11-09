@@ -56,6 +56,7 @@ const QUESTION_TEXT_Y_OFFSET = 30
 #CPU BS
 var cpu_timers: Array[Timer] = []
 var guessed_answers: Array[int] = []
+var cpus_to_know_answer: Dictionary[int, bool] = {}
 
 func _ready() -> void:
 	current_state = AnsweringState.WAITING_FOR_A
@@ -503,8 +504,11 @@ func create_timer_for_picking_an_answer(time = 20):
 func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 	#for every player
 	for comp in JeopardyGlobals.player_id_to_is_cpu.keys():
+		if daily_double_player != -1 and comp != daily_double_player:
+			continue
+		
 		if comp in disabled_players:
-			print_debug('Player %d was disabled so noo timers are going.' % [comp + 1])
+			print_debug('Player %d was disabled so no timers are going.' % [comp + 1])
 			continue
 
 		#if theyre a human, skip this
@@ -512,8 +516,23 @@ func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 			continue
 
 		#TODO: THIS check if they even "know it"
-
-
+		#it was already determined if they know it
+		if comp not in cpus_to_know_answer:
+			cpus_to_know_answer[comp] = true
+			match JeopardySaveData.default_comp_diff:
+				JeopardyGlobals.EASY_CPU_DIFFFICULTY:
+					if randi_range(1, 100) < 30:
+						cpus_to_know_answer[comp] = false
+				JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
+					if randi_range(1, 100) < 20:
+						cpus_to_know_answer[comp] = false
+				JeopardyGlobals.HARD_CPU_DIFFFICULTY:
+					if randi_range(1, 100) < 10:
+						cpus_to_know_answer[comp] = false
+		
+		if cpus_to_know_answer[comp] == false:
+			continue
+		
 		#choose a time range
 		var min := 1.0
 		var max := 5.0
@@ -574,7 +593,7 @@ func cpu_answer_question_preprocessing(player_id: int):
 	#check if they got it correct
 	match JeopardySaveData.default_comp_diff:
 		JeopardyGlobals.EASY_CPU_DIFFFICULTY:
-			if randi_range(1, 101) < 60:
+			if randi_range(1, 101) < 70:
 				correct = true
 
 		JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:

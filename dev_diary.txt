@@ -4,3 +4,8 @@
 10/30/2026
     Continuing. Cant stop listening to "All Too Well" and "Breakfast at Tiffany's". i have no heartbreak in me, but these songs make me feel like I do
     "~~IN THE REFRIGERATOR LIIIIGHT~~"
+
+11/02/2026
+    Google AI overview told me that the best way to do a UI is "X" where X is my current method. My current method is horrible. There is no way other people are 
+    doing this thing. I suspect they had to have looked at my code in Github or something. I refuse to believe other programmers are as crap as me
+

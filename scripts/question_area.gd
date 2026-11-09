@@ -239,6 +239,11 @@ func spawn_questions():
 
 	if JeopardyGlobals.CPU_TESTING:
 		cpu_turn_to_pick_question()
+		return
+	
+	#if this is a cpu player
+	if JeopardyGlobals.player_id_to_is_cpu[current_player_selecting]:
+		cpu_turn_to_pick_question()
 
 
 func _input(event: InputEvent) -> void:
@@ -411,6 +416,10 @@ func return_from_question_show_board():
 
 		#create the timer
 		create_timer_for_selecting_question()
+
+		#if this is a cpu player
+		if JeopardyGlobals.player_id_to_is_cpu[current_player_selecting]:
+			cpu_turn_to_pick_question()
 	
 func user_answered_incorrectly(player_id: int, score_value: int):
 	#they got a quesiton wrong so set that for the achievement
