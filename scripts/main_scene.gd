@@ -82,6 +82,7 @@ func begin_actual_game():
 	var new_scene = question_game_scene.instantiate()
 	new_scene.going_to_final_score.connect(go_to_final_score)
 	current_game_scene = new_scene
+	print(JeopardyGlobals.money_by_player)
 
 	print_debug('Adding question area to scene.');
 	#load the db

@@ -346,6 +346,8 @@ offset_top = 950.0
 offset_right = 1057.0
 offset_bottom = 1160.0
 scale = Vector2(0.5200006, 0.5200006)
+mouse_filter = 2
+mouse_behavior_recursive = 1
 theme_override_font_sizes/font_size = 72
 text = "Return to 
 title screen"
@@ -357,6 +359,8 @@ offset_top = 949.0
 offset_right = 2011.0
 offset_bottom = 1159.0
 scale = Vector2(0.5200006, 0.5200006)
+mouse_filter = 2
+mouse_behavior_recursive = 1
 theme_override_font_sizes/font_size = 72
 text = "Create Question Sets From CSVs"
 autowrap_mode = 3

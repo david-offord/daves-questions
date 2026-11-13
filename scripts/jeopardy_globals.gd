@@ -6,6 +6,8 @@ var MINOR_DEBUG_MODE = false # smaller changes (i.e. number of questions to do b
 var ACHIEVEMENT_DEBUGGING = false # shows a thing saying steam would have unlocked an achievement
 var FIRST_QUESTION_ALWAYS_DAILY_DOUBLE = false # stops shuffling of questions at start of round, and makes the first 1 (or 2) the daily double
 var DEBUG_ALL_QUESTIONS_DAILY_DOUBLE = false # turn all questions into daily doubles
+var DEBUG_END_SCENES_EARLY = true # causes scenes to transition quicker, even if there are still questions on the board
+var DEBUG_CHANGE_MONEY = true # sets base money on start
 var DEBUG_DEMO_PURPOSES = false # allows this to be played with only the keyboard
 var SINGLEPLAYER_TESTING = false # allows one person to use the same controller for 2 plaers
 var VERBOSE_LOGGING = false # for testing, logs more detailed things about player controller input
@@ -55,6 +57,8 @@ var player_id_to_is_cpu = {
 	0: false
 }
 
+var player_already_buzzed_with_keyboard := false
+
 ##Returns if there is a single CPU
 var cpu_game:
 	get:
@@ -74,14 +78,14 @@ var player_to_ever_negative = {
 var questions_db = SQLite.new()
 
 func _ready() -> void:
-	if DEBUG_MODE:
+	if DEBUG_CHANGE_MONEY:
 		money_by_player = {
 			0: 4300,
 			1: - 4900,
 			2: - 10,
 		}
 		number_of_players = 2
-		set_player_id_and_guid(0, 0)
+		#set_player_id_and_guid(0, 0)
 
 	else:
 		money_by_player = {
@@ -228,13 +232,14 @@ func set_player_id_and_guid(player_id: int, controller_id: int, is_keyboard = fa
 	number_of_players += 1
 	player_id_by_device_guid[player_id] = '%d_%s' % [controller_id, is_keyboard]
 	player_id_to_is_cpu[player_id] = false
-	money_by_player[player_id] = 0
+	money_by_player[player_id] = 1000 if JeopardyGlobals.DEBUG_CHANGE_MONEY else 0
+	print(money_by_player)
 
 func set_cpu_id_and_guid(cpu_id: int):
 	number_of_players += 1
 	player_id_by_device_guid[cpu_id] = 'cpu_%d' % [cpu_id, ]
 	player_id_to_is_cpu[cpu_id] = true
-	money_by_player[cpu_id] = 0
+	money_by_player[cpu_id] = 1000 if JeopardyGlobals.DEBUG_CHANGE_MONEY else 0
 
 ##get the id of the player based on the controller guid
 func get_player_id_by_guid(cont_id, is_keyboard = false):
@@ -246,14 +251,21 @@ func get_player_id_by_guid(cont_id, is_keyboard = false):
 
 func start_new_game(reset_controllers = false):
 	if reset_controllers:
-		#reset the player info
+		#reset the number of players and other dictionaries
+		number_of_players = 3
+		money_by_player = {
+			0: 0,
+			1: 0,
+		}
 		player_id_by_device_guid = {
 			0: '',
 			1: '',
 		}
+		player_id_to_is_cpu = {
+			0: false
+		}
 
-		#reset the number of players
-		number_of_players = 3
+		player_already_buzzed_with_keyboard = false
 
 func format_currency(number_int: int) -> String:
 	if number_int < 0:

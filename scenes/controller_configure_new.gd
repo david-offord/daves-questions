@@ -83,6 +83,9 @@ func _ready() -> void:
 	#reset the number of players
 	JeopardyGlobals.number_of_players = 0
 	JeopardyGlobals.CURRENT_GAME_STATE = JeopardyGlobals.GameState.CONTROLLER_CONFIGURATION
+	JeopardyGlobals.player_already_buzzed_with_keyboard = false
+
+	JeopardyGlobals.start_new_game()
 
 	#grab the defaults from savedata
 	menu_value_by_position[HUMAN_PLAYER_POSITION] = JeopardySaveData.default_player_amts
@@ -288,6 +291,8 @@ func change_setting_value(right):
 func back_out_to_cpu_menu():
 	menu_position = 0
 	current_game_state = State.HumanCpuConfig
+	current_controller_configuring = 0
+	already_used_controllers = []
 
 	#swap the menus
 	press_a_area.hide()
@@ -318,22 +323,27 @@ func finish_cpu_config():
 	JeopardySaveData.default_comp_diff = final_cpu_difficult
 	JeopardySaveData.save_to_file()
 
-	#hide all the shit
-	press_a_area.show()
-	comp_choices_menu.hide()
+
+	start_controller_config()
 
 	#then change the state
 	current_game_state = State.ControllerMapping
 
 func start_controller_config():
+	controller_config_prompt.text = 'Player %d, Press %s On Your Controller!' % [(current_controller_configuring + 1), "A" if JeopardyGlobals.player_already_buzzed_with_keyboard else "A/Space"]
+	#hide all the shit
+	press_a_area.show()
+	comp_choices_menu.hide()
+
 	pass
 
 
-#TODO: all of this lol
 func set_controller_config(cont_id: int, is_keyboard = false):
 	current_controller_state = ControllerConfigureState.ANIMATING
 	JeopardyGlobals.set_player_id_and_guid(current_controller_configuring, cont_id, is_keyboard)
 	JeopardyGlobals.money_by_player[current_controller_configuring] = 0
+	#basically record if there was any player already buzzing in with a keyboard
+	JeopardyGlobals.player_already_buzzed_with_keyboard = is_keyboard or JeopardyGlobals.player_already_buzzed_with_keyboard
 
 	already_used_controllers.append('%d_%s' % [cont_id, is_keyboard])
 	current_controller_configuring += 1
@@ -343,7 +353,7 @@ func set_controller_config(cont_id: int, is_keyboard = false):
 		all_players_configured()
 		return
 				
-	controller_config_prompt.text = 'Player %d, Press A/Space On Your Controller!' % (current_controller_configuring + 1)
+	controller_config_prompt.text = 'Player %d, Press %s On Your Controller!' % [(current_controller_configuring + 1), "A" if JeopardyGlobals.player_already_buzzed_with_keyboard else "A/Space"]
 	current_controller_state = ControllerConfigureState.WAITING_FOR_A
 
 

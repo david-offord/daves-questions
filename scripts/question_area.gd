@@ -70,7 +70,7 @@ var NUMBER_OF_ROWS = 5
 var SECONDS_PER_WORD = 0.4
 
 #DEBUG VARIABLES
-var debug_simulate_none_left_after = 2
+var debug_simulate_none_left_after = 1
 var debug_questions_asked = 0
 
 #steam achievement variables
@@ -96,6 +96,10 @@ func _ready() -> void:
 	#set the current game state
 	JeopardyGlobals.CURRENT_GAME_STATE = JeopardyGlobals.GameState.GAMEBOARD
 	JeopardyGlobals.start_new_game()
+	if JeopardyGlobals.DEBUG_CHANGE_MONEY:
+		JeopardyGlobals.money_by_player[0] = 1000
+		JeopardyGlobals.money_by_player[1] = 1000
+		JeopardyGlobals.money_by_player[2] = 250
 
 	print_debug('Number of columns: %d.' % NUMBER_OF_COLUMNS);
 	#initialize the 2d array
@@ -218,6 +222,7 @@ func spawn_questions():
 		question_box_array[col][row] = question_box
 		
 		#wait a lil bit before we add another
+		#leaving this here cause idk wtf i was testing but its hilarious
 		await get_tree().create_timer(.05 if JeopardyGlobals.DEBUG_MODE == false else 0.05).timeout
 
 		if i % 2 == 0:
@@ -227,8 +232,8 @@ func spawn_questions():
 	
 	print_debug('Beginning selection process, highlighting player, and creating timer.');
 	#initialize the movement
-	move_selection('')
 	current_state = QUESTION_AREA_STATES.WAITING_FOR_SELECTION
+	move_selection('')
 	$PlayerScoreBoard.highlight_player(current_player_selecting)
 	
 	#show the announcer
@@ -237,9 +242,9 @@ func spawn_questions():
 	#create a timer
 	create_timer_for_selecting_question()
 
-	if JeopardyGlobals.CPU_TESTING:
-		cpu_turn_to_pick_question()
-		return
+	#if JeopardyGlobals.CPU_TESTING:
+	#	cpu_turn_to_pick_question()
+	#	return
 	
 	#if this is a cpu player
 	if JeopardyGlobals.player_id_to_is_cpu[current_player_selecting]:
@@ -391,7 +396,7 @@ func return_from_question_show_board():
 			if question_box_array[col][row].disabled == false:
 				questions_remain = true
 	
-	if JeopardyGlobals.MINOR_DEBUG_MODE:
+	if JeopardyGlobals.DEBUG_END_SCENES_EARLY:
 		debug_questions_asked += 1
 		if debug_questions_asked >= debug_simulate_none_left_after:
 			questions_remain = false
@@ -400,7 +405,7 @@ func return_from_question_show_board():
 	if questions_remain == false:
 		print_debug('There are no questions left. Moving on to either final jeopardy or double jeopardy.');
 		#if we need to go to final jeopardy
-		if is_in_double_jeopardy:
+		if is_in_double_jeopardy or JeopardyGlobals.DEBUG_END_SCENES_EARLY:
 			print_debug('We are triggering final jeopardy.');
 			trigger_final_jeopardy_input()
 		#if we need to go to double jeopardy
@@ -610,7 +615,7 @@ func daily_double_value_locked_in(player_id, value):
 	elif rating > .2:
 		$TestAnnouncer.show_text_bubble("I've seen bigger bets, but hey, its your choice!", 3)
 	else:
-		$TestAnnouncer.show_text_bubble("I bet you don't take many chances in life, do ya? Just show the question.", 4)
+		$TestAnnouncer.show_text_bubble("What a truly pathetic bet.", 3)
 	#wait for text to end
 	await $TestAnnouncer.text_bubble_hidden
 
@@ -753,7 +758,7 @@ func trigger_final_jeopardy_input():
 	$TestAnnouncer.hide()
 
 func final_jeopardy_value_lock_in(player_id: int, value: int):
-	print_debug('Player %d locked in fj value.' % player_id);
+	print_debug('Player %d locked in fj value %d.' % [player_id, value]);
 
 
 	#if the player is in first, and they still bet it all, give em the achievement

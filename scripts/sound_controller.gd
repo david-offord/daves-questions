@@ -233,7 +233,10 @@ func play_sound_effect(effect: SoundEffects):
 
 	var mod: float = (100 - JeopardySaveData.se_volume) * .2
 
-	temp_player.volume_db = 0 - mod
+	if JeopardySaveData.se_volume == 0:
+		temp_player.volume_db = -99999
+	else:
+		temp_player.volume_db = 0 - mod
 
 	temp_player.play()
 	#make it kill itself once its finished

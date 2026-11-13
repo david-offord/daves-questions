@@ -40,6 +40,9 @@ var held_button_2_perc = 0.0
 
 #daily double logic
 var daily_double_player = -1
+var is_daily_double:
+	get:
+		return daily_double_player != -1
 
 #final jeopardy logic
 var is_in_final_jeopardy = false
@@ -108,7 +111,10 @@ func initialize_questions(question,
 
 	parent_announcer = announcer
 	#set up any cpu stuff
-	cpu_buzz_in_pre_processing(how_long_to_wait)
+	if is_in_final_jeopardy:
+		cpu_final_jeopardy_preprocess(how_long_to_wait)
+	else:
+		cpu_buzz_in_pre_processing(how_long_to_wait)
 
 ##show the buzzer and create a timer
 func show_buzzer_button():
@@ -445,6 +451,7 @@ func show_final_jeopardy_answers():
 
 	$TimerLocation.add_child(onscreen_timer)
 
+
 ##Triggers in final jeopardy when player locks in
 func final_jeopardy_player_locked_in(player_id: int, answer: String, correct: bool):
 	#so first, disable the player
@@ -504,6 +511,7 @@ func create_timer_for_picking_an_answer(time = 20):
 func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 	#for every player
 	for comp in JeopardyGlobals.player_id_to_is_cpu.keys():
+		#if this is a not the specific cpu doing the double jeopardy
 		if daily_double_player != -1 and comp != daily_double_player:
 			continue
 		
@@ -515,7 +523,6 @@ func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 		if JeopardyGlobals.player_id_to_is_cpu[comp] == false:
 			continue
 
-		#TODO: THIS check if they even "know it"
 		#it was already determined if they know it
 		if comp not in cpus_to_know_answer:
 			cpus_to_know_answer[comp] = true
@@ -530,9 +537,15 @@ func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 					if randi_range(1, 100) < 10:
 						cpus_to_know_answer[comp] = false
 		
-		if cpus_to_know_answer[comp] == false:
+		#basically if they don't want to buzz in, but its a daily double, theyre stuck
+		if cpus_to_know_answer[comp] == false and is_daily_double == false:
 			continue
 		
+		#if its a daily double, its handled in the double jeopardy buzz in
+		if is_daily_double:
+			continue
+
+
 		#choose a time range
 		var min := 1.0
 		var max := 5.0
@@ -542,7 +555,7 @@ func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 				max = 6
 
 				#basically make em buzz in too early
-				if randi_range(1, 101) < 30:
+				if randi_range(1, 101) < 30 and is_daily_double == false:
 					min = -0.5
 					max = -0.1
 			JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
@@ -550,14 +563,14 @@ func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 				max = 4.0
 				
 				#basically make em buzz in too early
-				if randi_range(1, 101) < 15:
+				if randi_range(1, 101) < 15 and is_daily_double == false:
 					min = -0.5
 					max = -0.1
 			JeopardyGlobals.HARD_CPU_DIFFFICULTY:
 				min = .5
 				max = 3.0
 				
-				if randi_range(1, 101) < 5:
+				if randi_range(1, 101) < 5 and is_daily_double == false:
 					min = -0.5
 					max = -0.1
 				
@@ -567,6 +580,7 @@ func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 		var c_timer = get_tree().create_timer(time_to_wait)
 		c_timer.timeout.connect(cpu_buzz_in.bind(comp))
 		cpu_timers.append(c_timer)
+
 
 func cpu_buzz_in(player_id: int):
 	if current_state == AnsweringState.WAITING_FOR_A and player_id not in disabled_players:
@@ -633,3 +647,74 @@ func cpu_answer_question_preprocessing(player_id: int):
 		button_1_being_held = true
 	if select_index == 2:
 		button_2_being_held = true
+
+
+#TODO: The AI stuff here, like determing if theyll get it correct, etc
+func cpu_final_jeopardy_preprocess(time_to_buzzer: float):
+	var select_index := 0
+	var correct := false
+
+	for comp in JeopardyGlobals.player_id_to_is_cpu.keys():
+		#if this is a not the specific cpu doing the double jeopardy
+		if comp not in final_jeopardy_allowed_players:
+			print_debug('CPU %d is not an allowed final jeopardy player.' % [comp + 1])
+			continue
+
+		#if theyre a human, skip this
+		if JeopardyGlobals.player_id_to_is_cpu[comp] == false:
+			continue
+
+		#check if they got it correct
+		match JeopardySaveData.default_comp_diff:
+			JeopardyGlobals.EASY_CPU_DIFFFICULTY:
+				if randi_range(1, 101) < 70:
+					correct = true
+
+			JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
+				if randi_range(1, 101) < 80:
+					correct = true
+
+			JeopardyGlobals.HARD_CPU_DIFFFICULTY:
+				if randi_range(1, 101) < 95:
+					correct = true
+
+
+		#now do the actual thing for if they got it right or not
+		#if correct, give em the right index
+		if correct:
+			select_index = correct_answer_int
+		else:
+			#otherwise give em a different one
+			#and yes, im sure theres a better way to do this. tell the twerps
+			#in the steam reviews that too. it works, so shut up
+			var poss = [0, 1, 2]
+			poss.shuffle()
+			poss.remove_at(poss.find(correct_answer_int))
+
+			select_index = poss[0]
+			if select_index in guessed_answers:
+				select_index = poss[1]
+
+		#make a timer
+		var time_to_wait := time_to_buzzer + randf_range(.75, 3)
+		print_debug('CPU %d waiting %d seconds.' % [comp + 1, time_to_wait])
+		var c_timer = get_tree().create_timer(time_to_wait)
+		c_timer.timeout.connect(cpu_answer_final_jeopardy.bind(comp, select_index))
+		cpu_timers.append(c_timer)
+
+func cpu_answer_final_jeopardy(player_id: int, guess_index: int):
+	print_debug('CPU %d guessing option %d.' % [player_id + 1, guess_index])
+
+	var answer_text := ''
+	match guess_index:
+		0:
+			answer_text = $AnswerOption0/QuestionText.text
+		1:
+			answer_text = $AnswerOption1/QuestionText.text
+		2:
+			answer_text = $AnswerOption2/QuestionText.text
+
+	if current_state == AnsweringState.WAITING_FOR_ANSWER and is_in_final_jeopardy == true:
+		if player_id not in final_jeopardy_players_answered and player_id in final_jeopardy_allowed_players:
+			#brother why the FUCK did i code it this way lmfao
+			final_jeopardy_player_locked_in(player_id, answer_text, guess_index == correct_answer_int)

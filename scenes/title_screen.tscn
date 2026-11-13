@@ -6,6 +6,21 @@
 [ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="5_dc4i4"]
 [ext_resource type="PackedScene" uid="uid://x3ce6ae3gvpb" path="res://scenes/credits_scroll.tscn" id="5_e54dn"]
 
+[sub_resource type="Animation" id="Animation_e54dn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_dc4i4"]
 resource_name = "rotate"
 length = 10.0
@@ -21,21 +36,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1.9318736, 0.84089655, 2.0000005),
 "update": 0,
 "values": [-0.1675516, 0.3351032, -0.1675516]
-}
-
-[sub_resource type="Animation" id="Animation_e54dn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3yumr"]
@@ -90,6 +90,8 @@ focus_neighbor_left = NodePath("../Configure")
 focus_neighbor_top = NodePath("../Credits")
 focus_neighbor_right = NodePath("../Configure")
 focus_neighbor_bottom = NodePath("../Credits")
+mouse_filter = 2
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("5_dc4i4")
 theme_override_font_sizes/font_size = 72
 text = "START GAME"
@@ -111,6 +113,8 @@ focus_neighbor_left = NodePath("../StartGame")
 focus_neighbor_top = NodePath("../Quit")
 focus_neighbor_right = NodePath("../StartGame")
 focus_neighbor_bottom = NodePath("../Quit")
+mouse_filter = 2
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("5_dc4i4")
 theme_override_font_sizes/font_size = 72
 text = "Settings"
@@ -132,6 +136,8 @@ focus_neighbor_left = NodePath("../Quit")
 focus_neighbor_top = NodePath("../StartGame")
 focus_neighbor_right = NodePath("../Quit")
 focus_neighbor_bottom = NodePath("../StartGame")
+mouse_filter = 2
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("5_dc4i4")
 theme_override_font_sizes/font_size = 72
 text = "Credits"
@@ -153,6 +159,8 @@ focus_neighbor_left = NodePath("../Credits")
 focus_neighbor_top = NodePath("../Configure")
 focus_neighbor_right = NodePath("../Credits")
 focus_neighbor_bottom = NodePath("../Configure")
+mouse_filter = 2
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("5_dc4i4")
 theme_override_font_sizes/font_size = 72
 text = "Quit

@@ -9,3 +9,12 @@
     Google AI overview told me that the best way to do a UI is "X" where X is my current method. My current method is horrible. There is no way other people are 
     doing this thing. I suspect they had to have looked at my code in Github or something. I refuse to believe other programmers are as crap as me
 
+11/12/2026
+    Well here we go, I'm near the end. After this final jeopardy thing, all I have to do is test, which I hate. And god forbid I make the choice to do an online
+    multiplayer thing. I dont even want to think about that right now
+
+    Why am I even bothering with this? I'm sure I will still get nothing but complaints. I also actually read that review that inspired me to do this, and to be fair
+    I actually agree with a lot of the stuff he said. Still, probably a nicer way to say it lol. Anyway, I am going to be adding resolution options next, and then I
+    think I'm done
+
+    
