@@ -7,6 +7,7 @@ var time_modifier = '1x'
 var se_volume = 100
 var me_volume = 100
 var announcer = 'Dave'
+var windowed = 0
 
 #so categories dont repeat
 var categories_seen = []

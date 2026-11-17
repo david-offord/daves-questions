@@ -9,6 +9,9 @@ signal started_game
 var instantiated_settings_scene = null
 var instantiated_credits_scroll = null
 
+@onready var help_screen: HelpTextController = $HelpTextControl
+var currently_in_controller_config = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	JeopardyGlobals.CURRENT_GAME_STATE = JeopardyGlobals.GameState.MAIN_MENU
@@ -16,8 +19,12 @@ func _ready() -> void:
 	SoundController.play_specific_music(SoundController.SpecificMusic.MainMenu)
 
 	call_deferred('grab_focus')
+
+	help_screen.backed_out.connect(backout_of_controls)
+
 	#if JeopardyGlobals.MINOR_DEBUG_MODE:
 	#	SteamController.set_achievement_achieved(SteamController.Achievements.dj)
+	
 
 func grab_focus():
 	$MainMenuButtons/StartGame.grab_focus()
@@ -86,6 +93,23 @@ func reenable_buttons():
 	for butt: Button in $MainMenuButtons.get_children():
 		butt.disabled = false
 
+func show_controls():
+	for butt: Button in $MainMenuButtons.get_children():
+		butt.disabled = true
+	
+	help_screen.show_help()
+
 
 func _on_quit_pressed() -> void:
 	get_tree().quit(0)
+
+
+func _on_controls_pressed() -> void:
+	currently_in_controller_config = true
+	$MainMenuButtons/Controls.release_focus()
+	show_controls()
+
+func backout_of_controls():
+	currently_in_controller_config = false
+	$MainMenuButtons/Controls.grab_focus()
+	reenable_buttons()

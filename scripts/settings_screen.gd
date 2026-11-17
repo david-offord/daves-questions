@@ -29,10 +29,11 @@ var speed_options = ['0.5x', '1x', '1.5x', '2x']
 var se_options = []
 
 var announcer_options = ['Dave', 'Jen Kennings', 'Corporal Hundred Legs']
+var display_options = ['Fullscreen', 'Windowed']
 
 #positions of buttons
-var RETURN_TO_TITLE_BUTTON_POS = 5
-var CREATE_QUESTIONS_BUTTON_POS = 6
+var RETURN_TO_TITLE_BUTTON_POS = 6
+var CREATE_QUESTIONS_BUTTON_POS = 7
 
 #variables for selecting and moving
 var current_option_position = 0
@@ -46,7 +47,8 @@ var current_value = {
 	1: 2,
 	2: 20,
 	3: 20,
-	4: 0
+	4: 0,
+	5: 0
 }
 
 var past_8_inputs := []
@@ -61,6 +63,7 @@ func _ready() -> void:
 		2: $MainMenuButtons/SoundEffects/Value,
 		3: $MainMenuButtons/MusicVolume/Value,
 		4: $MainMenuButtons/Announcer/Value,
+		5: $MainMenuButtons/FullScreen/Value,
 		RETURN_TO_TITLE_BUTTON_POS: $MainMenuButtons/ReturnToTitle,
 		CREATE_QUESTIONS_BUTTON_POS: $MainMenuButtons/CreateQuestionSets,
 	}
@@ -90,6 +93,8 @@ func _ready() -> void:
 	else:
 		current_value[4] = 0
 
+	#full screen stuff
+	current_value[5] = 0 if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN else 1
 
 	print(OS.get_user_data_dir())
 
@@ -178,6 +183,7 @@ func initialize_setting_values():
 	button_by_option_position[2].text = '%d%%' % se_options[current_value[2]]
 	button_by_option_position[3].text = '%d%%' % se_options[current_value[3]]
 	button_by_option_position[4].text = announcer_options[current_value[4]]
+	button_by_option_position[5].text = display_options[current_value[5]]
 
 	#change the text on load
 	if button_by_option_position[current_option_position].text == 'MDFD Questions':
@@ -188,7 +194,7 @@ func initialize_setting_values():
 		$MainMenuButtons/QuestionSetRow/SettingText.text = 'Custom question set provided by the user.'
 
 func change_setting_value(right):
-	#question set
+	#question set7
 	if current_option_position == 0:
 		current_value[current_option_position] += 1 if right else -1
 		current_value[current_option_position] = wrapi(current_value[current_option_position], 0, len(all_question_set_options))
@@ -228,6 +234,17 @@ func change_setting_value(right):
 		current_value[current_option_position] = wrapi(current_value[current_option_position], 0, len(announcer_options))
 		button_by_option_position[current_option_position].text = announcer_options[current_value[current_option_position]]
 
+	if current_option_position == 5:
+		current_value[current_option_position] += 1 if right else -1
+		current_value[current_option_position] = wrapi(current_value[current_option_position], 0, len(display_options))
+		button_by_option_position[current_option_position].text = display_options[current_value[current_option_position]]
+
+		#it is full screen
+		if current_value[current_option_position] == 0:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
 
 	if current_option_position == RETURN_TO_TITLE_BUTTON_POS:
 		current_option_position = CREATE_QUESTIONS_BUTTON_POS
@@ -246,6 +263,7 @@ func completed_settings():
 	JeopardySaveData.me_volume = se_options[current_value[3]]
 	JeopardySaveData.me_volume = se_options[current_value[3]]
 	JeopardySaveData.announcer = announcer_options[current_value[4]]
+	JeopardySaveData.windowed = current_value[5]
 
 	if JeopardySaveData.me_volume == 0:
 		SteamController.set_achievement_achieved(SteamController.Achievements.i_hate_bossa_nova)

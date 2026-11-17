@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://gk73vc666cmc"]
+[gd_scene load_steps=13 format=3 uid="uid://gk73vc666cmc"]
 
 [ext_resource type="Script" uid="uid://cys0cowc7xn28" path="res://scripts/title_screen.gd" id="1_s4lrb"]
 [ext_resource type="PackedScene" uid="uid://ca1w40ranrbjg" path="res://scenes/settings_screen.tscn" id="2_mgrm8"]
 [ext_resource type="Texture2D" uid="uid://bhgucobtxpkkt" path="res://images/KathrynsSprites/TitleScreen.png" id="2_s4lrb"]
 [ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="5_dc4i4"]
 [ext_resource type="PackedScene" uid="uid://x3ce6ae3gvpb" path="res://scenes/credits_scroll.tscn" id="5_e54dn"]
+[ext_resource type="Script" uid="uid://cydqdjc6e8u2c" path="res://scripts/help_text_controller.gd" id="6_cs5ya"]
+[ext_resource type="Texture2D" uid="uid://bfeeuy2xodbm8" path="res://images/help_text.png" id="6_e54dn"]
+[ext_resource type="FontVariation" uid="uid://br0tro10cdfpu" path="res://fonts/fig_400_weight.tres" id="7_3yumr"]
 
 [sub_resource type="Animation" id="Animation_e54dn"]
 length = 0.001
@@ -44,6 +47,18 @@ _data = {
 &"rotate": SubResource("Animation_dc4i4")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cs5ya"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="TitleScreen" type="Node"]
 script = ExtResource("1_s4lrb")
 settings_scene = ExtResource("2_mgrm8")
@@ -80,9 +95,9 @@ anchor_left = 0.5
 anchor_top = 0.6412037
 anchor_right = 0.5
 anchor_bottom = 0.6412037
-offset_left = -396.0
+offset_left = -604.0
 offset_top = 84.5
-offset_right = -6.0
+offset_right = -214.0
 offset_bottom = 211.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -92,8 +107,10 @@ focus_neighbor_right = NodePath("../Configure")
 focus_neighbor_bottom = NodePath("../Credits")
 mouse_filter = 2
 mouse_behavior_recursive = 1
+theme_override_colors/font_disabled_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
 theme_override_fonts/font = ExtResource("5_dc4i4")
 theme_override_font_sizes/font_size = 72
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cs5ya")
 text = "START GAME"
 
 [node name="Configure" type="Button" parent="MainMenuButtons"]
@@ -103,21 +120,48 @@ anchor_left = 0.5
 anchor_top = 0.6412037
 anchor_right = 0.5
 anchor_bottom = 0.6412037
-offset_left = 14.0
-offset_top = 85.5
-offset_right = 404.0
-offset_bottom = 212.5
+offset_left = -181.0
+offset_top = 84.5
+offset_right = 209.0
+offset_bottom = 211.5
 grow_horizontal = 2
 grow_vertical = 2
 focus_neighbor_left = NodePath("../StartGame")
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_right = NodePath("../Controls")
+focus_neighbor_bottom = NodePath("../Quit")
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_colors/font_disabled_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_fonts/font = ExtResource("5_dc4i4")
+theme_override_font_sizes/font_size = 72
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cs5ya")
+text = "Settings"
+
+[node name="Controls" type="Button" parent="MainMenuButtons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.6412037
+anchor_right = 0.5
+anchor_bottom = 0.6412037
+offset_left = 241.0
+offset_top = 84.5
+offset_right = 631.0
+offset_bottom = 211.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../Configure")
 focus_neighbor_top = NodePath("../Quit")
 focus_neighbor_right = NodePath("../StartGame")
 focus_neighbor_bottom = NodePath("../Quit")
 mouse_filter = 2
 mouse_behavior_recursive = 1
+theme_override_colors/font_disabled_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
 theme_override_fonts/font = ExtResource("5_dc4i4")
 theme_override_font_sizes/font_size = 72
-text = "Settings"
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cs5ya")
+text = "Controls"
 
 [node name="Credits" type="Button" parent="MainMenuButtons"]
 layout_mode = 1
@@ -138,8 +182,10 @@ focus_neighbor_right = NodePath("../Quit")
 focus_neighbor_bottom = NodePath("../StartGame")
 mouse_filter = 2
 mouse_behavior_recursive = 1
+theme_override_colors/font_disabled_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
 theme_override_fonts/font = ExtResource("5_dc4i4")
 theme_override_font_sizes/font_size = 72
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cs5ya")
 text = "Credits"
 
 [node name="Quit" type="Button" parent="MainMenuButtons"]
@@ -161,12 +207,87 @@ focus_neighbor_right = NodePath("../Credits")
 focus_neighbor_bottom = NodePath("../Configure")
 mouse_filter = 2
 mouse_behavior_recursive = 1
+theme_override_colors/font_disabled_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
 theme_override_fonts/font = ExtResource("5_dc4i4")
 theme_override_font_sizes/font_size = 72
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cs5ya")
 text = "Quit
 "
 
+[node name="HelpTextControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_cs5ya")
+
+[node name="HelpText" type="TextureRect" parent="HelpTextControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1797.0
+offset_top = 62.0
+offset_right = -1917.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_e54dn")
+
+[node name="ControllerConfig" type="RichTextLabel" parent="HelpTextControl/HelpText"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.26333332
+anchor_top = 0.124000005
+anchor_right = 0.49204764
+anchor_bottom = 0.5795918
+offset_top = 0.47999573
+offset_right = 139.79999
+theme_override_fonts/normal_font = ExtResource("7_3yumr")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "D-Pad/Left Analog Stick:
+[indent]Movement/Select Answer[/indent]
+
+A: 
+[indent]Buzz In, Select, Confirm[/indent]
+
+B:
+[indent]Buzz In, Cancel, Back Out[/indent]
+
+Shoulder Buttons: 
+[indent]Maximum Bet[/indent]"
+metadata/_edit_use_anchors_ = true
+
+[node name="KeyboardConfig" type="RichTextLabel" parent="HelpTextControl/HelpText"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6572222
+anchor_top = 0.5086939
+anchor_right = 0.88593644
+anchor_bottom = 0.96428573
+offset_top = 0.47999573
+offset_right = 139.79999
+theme_override_fonts/normal_font = ExtResource("7_3yumr")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "Arrow Keys:
+[indent]Movement/Select Answer[/indent]
+
+Z/Enter/Spacebar: 
+[indent]Buzz In, Select, Confirm[/indent]
+
+X/Esc/Backspace:
+[indent]Buzz In, Cancel, Back Out[/indent]
+
+C: 
+[indent]Maximum Bet[/indent]"
+metadata/_edit_use_anchors_ = true
+
 [connection signal="pressed" from="MainMenuButtons/StartGame" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="MainMenuButtons/Configure" to="." method="_on_configure_pressed"]
+[connection signal="pressed" from="MainMenuButtons/Controls" to="." method="_on_controls_pressed"]
 [connection signal="pressed" from="MainMenuButtons/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="MainMenuButtons/Quit" to="." method="_on_quit_pressed"]

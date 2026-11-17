@@ -131,3 +131,10 @@ func quit_game():
 func _input(event: InputEvent) -> void:
 	if JeopardyGlobals.EXTREMELY_VERBOSE_LOGGING:
 		print_debug('%s guid %s pressed button %s' % [event.device, Input.get_joy_guid(event.device), event.as_text()])
+
+	#counter to the name, i actually made this input. idk if it makes sense to prepend ui_ when I made it. Whatever
+	if event.is_action_pressed("ui_fullscreen"):
+		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
