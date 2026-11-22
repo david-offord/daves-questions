@@ -27,6 +27,9 @@ func show_text_bubble(text: String, show_for = 0.0):
 		hide_text_bubble()
 	
 func hide_text_bubble():
+	while JeopardyGlobals.IS_PAUSED:
+		await get_tree().create_timer(.1).timeout
+		
 	$AnnouncerBubble/Label.text = "text"
 	$AnnouncerBubble.hide()
 	text_bubble_hidden.emit()

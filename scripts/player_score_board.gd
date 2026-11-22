@@ -1,4 +1,4 @@
-extends Node2D
+class_name PlayerScoreBoard extends Node2D
 
 func _ready() -> void:
 	#hide the third player if its only 2
@@ -11,17 +11,27 @@ func _ready() -> void:
 
 	#change names on scoreboard if they are a cpu
 	for i in JeopardyGlobals.player_id_to_is_cpu.keys():
-		if JeopardyGlobals.player_id_to_is_cpu[i]:
+		if i in JeopardyGlobals.player_id_to_is_cpu and JeopardyGlobals.player_id_to_is_cpu[i]:
 			get_node('Player%dBoard/Title' % [i + 1]).text = 'CPU %d' % [i + 1]
 		else:
 			get_node('Player%dBoard/Title' % [i + 1]).text = 'Player %d' % [i + 1]
 	
+#why is this not for every player?
+# func update_score(player_id: int):
+# 	print_debug('Updating the score on the scoreboard for player %d' % player_id);
+# 	if player_id not in JeopardyGlobals.money_by_player:
+# 		return
+# 	var update_text: Label = get_node('Player%dBoard/PointTotal' % [player_id + 1])
+# 	update_text.text = str(JeopardyGlobals.format_scoreboard_currency((JeopardyGlobals.money_by_player[player_id])))
+
 func update_score(player_id: int):
-	print_debug('Updating the score on the scoreboard for player %d' % player_id);
-	if player_id not in JeopardyGlobals.money_by_player:
-		return
-	var update_text: Label = get_node('Player%dBoard/PointTotal' % [player_id + 1])
-	update_text.text = str(JeopardyGlobals.format_scoreboard_currency((JeopardyGlobals.money_by_player[player_id])))
+	for pid in JeopardyGlobals.money_by_player.keys():
+		print_debug('Updating the score on the scoreboard for player %d' % pid);
+		if pid not in JeopardyGlobals.money_by_player:
+			return
+		var update_text: Label = get_node('Player%dBoard/PointTotal' % [pid + 1])
+		update_text.text = str(JeopardyGlobals.format_scoreboard_currency((JeopardyGlobals.money_by_player[pid])))
+
 
 func show_disabled(player_id: int):
 	print_debug('Player %d was disabled.' % player_id);

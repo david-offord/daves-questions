@@ -26,7 +26,7 @@ func show_help():
 	tween.tween_property(help_text_image,
 		'position:x',
 		shown_x,
-		.75,
+		.5,
 		)
 	await tween.finished
 

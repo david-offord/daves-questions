@@ -5,6 +5,8 @@ extends Node
 @export var question_game_scene: PackedScene
 @export var final_score_game_scene: PackedScene
 
+@onready var pause_screen: PauseHud = $PauseHud
+
 var current_game_scene = null
 
 func _ready():
@@ -22,6 +24,10 @@ func _ready():
 		begin_actual_game()
 	else:
 		show_title_screen()
+
+	#connect the pause buttons
+	pause_screen.restart_from_pause.connect(start_new_game)
+	pause_screen.quit_to_title_from_pause.connect(return_to_title)
 	
 
 func show_title_screen():
@@ -115,6 +121,8 @@ func go_to_final_score(everyone_sub_zero = false):
 
 ##called by the final scene to start a new game (no configuration)
 func start_new_game():
+	if current_game_scene != null:
+		current_game_scene.queue_free()
 	print_debug('Starting a new game was requested by the button on the final score screen.');
 	begin_actual_game()
 
@@ -138,3 +146,25 @@ func _input(event: InputEvent) -> void:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+	#counter to the name, i actually made this input. idk if it makes sense to prepend ui_ when I made it. Whatever
+	if event.is_action_pressed("debug_button") and JeopardyGlobals.ALL_DEBUG_BUTTON:
+		print_debug("Debug button was pressed")
+		JeopardyGlobals.money_by_player[0] = -9000
+		JeopardyGlobals.money_by_player[1] = -10000
+		JeopardyGlobals.money_by_player[2] = 1000
+		var temp = get_tree().get_nodes_in_group("Scoreboard")
+		if len(temp) > 0:
+			temp[0].update_score(69)
+
+
+	if event.is_action_pressed('pause_game') and JeopardyGlobals.IS_PAUSABLE:
+		if JeopardyGlobals.IS_PAUSED:
+			return
+
+		pause_screen.show()
+		pause_screen.defer_setting_pause()
+		JeopardyGlobals.IS_PAUSED = true
+
+		#idk if this is like an immediate thing, but putting it at the en here
+		get_tree().paused = true

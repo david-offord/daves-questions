@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxmn22cv3rlfl"]
+[gd_scene load_steps=14 format=3 uid="uid://dxmn22cv3rlfl"]
 
 [ext_resource type="Script" uid="uid://bgt21pws7gi8l" path="res://scripts/main_scene.gd" id="1_pw63i"]
 [ext_resource type="PackedScene" uid="uid://do1umw7ypkisg" path="res://scenes/hud.tscn" id="2_7ykc4"]
@@ -7,8 +7,24 @@
 [ext_resource type="PackedScene" uid="uid://b2leh7jk34i7i" path="res://scenes/final_score.tscn" id="3_gubc5"]
 [ext_resource type="PackedScene" uid="uid://cl2hu6ex35yo6" path="res://scenes/background_crazy.tscn" id="4_gubc5"]
 [ext_resource type="PackedScene" uid="uid://olin8fwvu4vl" path="res://scenes/question_area.tscn" id="4_pu3yx"]
+[ext_resource type="FontVariation" uid="uid://br0tro10cdfpu" path="res://fonts/fig_400_weight.tres" id="8_18nlu"]
+[ext_resource type="Script" uid="uid://k4bsaeh1tedp" path="res://scripts/pause_hud.gd" id="8_c1pb6"]
+[ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="10_6wevv"]
+[ext_resource type="StyleBox" uid="uid://36dgbw5c2wg2" path="res://styles/pause_screen_button.tres" id="11_e1cbu"]
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_c16ls"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1cbu"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_pw63i")
@@ -40,3 +56,120 @@ mix_target = 2
 stream = SubResource("AudioStreamPolyphonic_c16ls")
 mix_target = 2
 max_polyphony = 20
+
+[node name="PauseHud" type="Control" parent="."]
+process_mode = 2
+visible = false
+z_index = 4096
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_c1pb6")
+
+[node name="ColorRect" type="ColorRect" parent="PauseHud"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6313726)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseHud"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -538.99994
+offset_top = -132.0
+offset_right = 539.0
+offset_bottom = 298.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.1522925
+theme_override_fonts/normal_font = ExtResource("8_18nlu")
+theme_override_font_sizes/normal_font_size = 250
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResumeGame" type="Button" parent="PauseHud"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = 264.0
+offset_right = -250.0
+offset_bottom = 391.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../Quit")
+focus_neighbor_right = NodePath("../Restart")
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_colors/font_disabled_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_fonts/font = ExtResource("10_6wevv")
+theme_override_font_sizes/font_size = 72
+theme_override_styles/normal = ExtResource("11_e1cbu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_e1cbu")
+text = "Resume"
+
+[node name="Restart" type="Button" parent="PauseHud"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -195.0
+offset_top = 264.0
+offset_right = 195.0
+offset_bottom = 391.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../ResumeGame")
+focus_neighbor_right = NodePath("../Quit")
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_colors/font_disabled_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_fonts/font = ExtResource("10_6wevv")
+theme_override_font_sizes/font_size = 72
+theme_override_styles/normal = ExtResource("11_e1cbu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_e1cbu")
+text = "Restart"
+
+[node name="Quit" type="Button" parent="PauseHud"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 250.0
+offset_top = 264.0
+offset_right = 640.0
+offset_bottom = 391.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../Restart")
+focus_neighbor_right = NodePath("../ResumeGame")
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_colors/font_disabled_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_fonts/font = ExtResource("10_6wevv")
+theme_override_font_sizes/font_size = 72
+theme_override_styles/normal = ExtResource("11_e1cbu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_e1cbu")
+text = "Exit to Title"
+
+[connection signal="pressed" from="PauseHud/ResumeGame" to="PauseHud" method="resume"]
+[connection signal="pressed" from="PauseHud/Restart" to="PauseHud" method="restart_game"]
+[connection signal="pressed" from="PauseHud/Quit" to="PauseHud" method="return_to_title"]

@@ -70,7 +70,6 @@ var NUMBER_OF_ROWS = 5
 var SECONDS_PER_WORD = 0.4
 
 #DEBUG VARIABLES
-var debug_simulate_none_left_after = 1
 var debug_questions_asked = 0
 
 #steam achievement variables
@@ -80,6 +79,7 @@ var ever_got_a_question_wrong = false
 func _ready() -> void:
 	#set the scores when the game starts
 	JeopardyGlobals.set_up_player_money()
+	JeopardyGlobals.IS_PAUSABLE = false
 
 	print_debug('Question area spawned and starting.');
 
@@ -128,6 +128,9 @@ func _ready() -> void:
 ##spawns the questions on the start of the game, and loads the questions
 func spawn_questions():
 	print_debug('Spawning questions into question area.');
+	await get_tree().create_timer(.1).timeout
+	
+	JeopardyGlobals.IS_PAUSABLE = false
 	#$HUD.set_label_on_front("")
 	var qmarkers := get_tree().get_nodes_in_group('question_marker')
 	var category_headers := get_tree().get_nodes_in_group('category_header')
@@ -246,8 +249,10 @@ func spawn_questions():
 	#	cpu_turn_to_pick_question()
 	#	return
 	
+	JeopardyGlobals.IS_PAUSABLE = true
+	
 	#if this is a cpu player
-	if JeopardyGlobals.player_id_to_is_cpu[current_player_selecting]:
+	if current_player_selecting in JeopardyGlobals.player_id_to_is_cpu and JeopardyGlobals.player_id_to_is_cpu[current_player_selecting]:
 		cpu_turn_to_pick_question()
 
 
@@ -307,6 +312,7 @@ func selected_question():
 		onscreen_timer.queue_free()
 
 	
+	JeopardyGlobals.IS_PAUSABLE = false
 	#is it a daily double
 	if currently_shown_question.is_daily_double:
 		print_debug('The question selected is a daily double. Changing the state of the game.');
@@ -398,14 +404,14 @@ func return_from_question_show_board():
 	
 	if JeopardyGlobals.DEBUG_END_SCENES_EARLY:
 		debug_questions_asked += 1
-		if debug_questions_asked >= debug_simulate_none_left_after:
+		if debug_questions_asked >= 1:
 			questions_remain = false
 
 	#if there are no more enabled questions
 	if questions_remain == false:
 		print_debug('There are no questions left. Moving on to either final jeopardy or double jeopardy.');
 		#if we need to go to final jeopardy
-		if is_in_double_jeopardy or JeopardyGlobals.DEBUG_END_SCENES_EARLY:
+		if is_in_double_jeopardy or JeopardyGlobals.DEBUG_SKIP_DOUBLE_JEOPARDY:
 			print_debug('We are triggering final jeopardy.');
 			trigger_final_jeopardy_input()
 		#if we need to go to double jeopardy
@@ -415,6 +421,7 @@ func return_from_question_show_board():
 
 	#if there ARE enabled questions still
 	else:
+		JeopardyGlobals.IS_PAUSABLE = true
 		print_debug('There are questions remaining. Moving on...');
 		#highlight the player who should be selecting
 		$PlayerScoreBoard.highlight_player(current_player_selecting)
@@ -423,7 +430,7 @@ func return_from_question_show_board():
 		create_timer_for_selecting_question()
 
 		#if this is a cpu player
-		if JeopardyGlobals.player_id_to_is_cpu[current_player_selecting]:
+		if current_player_selecting in JeopardyGlobals.player_id_to_is_cpu and JeopardyGlobals.player_id_to_is_cpu[current_player_selecting]:
 			cpu_turn_to_pick_question()
 	
 func user_answered_incorrectly(player_id: int, score_value: int):
@@ -515,7 +522,7 @@ func question_picking_time_up():
 
 	
 	#if this is a cpu player (likely not, but hey who tf knows)
-	if JeopardyGlobals.player_id_to_is_cpu[current_player_selecting]:
+	if current_player_selecting in JeopardyGlobals.player_id_to_is_cpu and JeopardyGlobals.player_id_to_is_cpu[current_player_selecting]:
 		print('THIS IS A CPU PLAYER!!!')
 		cpu_turn_to_pick_question()
 
@@ -539,6 +546,7 @@ func create_timer_for_selecting_question(time = 20):
 func spawn_question_answer_area(daily_double = false, final_jeopardy = false):
 	print_debug('Spawning the question answer area.');
 	current_buzz_and_answer_child = buzz_in_and_answer_scene.instantiate()
+	JeopardyGlobals.IS_PAUSABLE = false
 
 	#bind the signals
 	current_buzz_and_answer_child.connect('answered_incorrectly', user_answered_incorrectly)
@@ -797,7 +805,7 @@ func final_jeopardy_time_ran_out():
 	going_to_final_score.emit()
 
 func final_jeopardy_answer_lock_in(player_id: int, answer: String, was_correct = true):
-	SoundController.play_sound_effect(SoundController.SoundEffects.RightAnswer)
+	SoundController.play_sound_effect(SoundController.SoundEffects.MenuAccept)
 	print_debug('Player %d has locked in their final jeopardy answer.' % player_id);
 	#record someone answered
 	number_of_people_in_final_jeopardy_question -= 1
@@ -867,8 +875,15 @@ func cpu_turn_to_pick_question():
 	#move the cursor around
 	movements.shuffle()
 	for move in movements:
+		while JeopardyGlobals.IS_PAUSED:
+			await get_tree().create_timer(.1).timeout
+
+
 		move_selection(move)
 		await get_tree().create_timer(.3).timeout
 
 	#select the question
+	
+	while JeopardyGlobals.IS_PAUSED:
+		await get_tree().create_timer(.1).timeout
 	selected_question()

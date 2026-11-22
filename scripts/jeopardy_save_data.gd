@@ -29,6 +29,8 @@ var SAVE_FILE_LOCATION = "user://jeopardy_save.dat"
 func add_to_categories_seen(category_id: int):
 	if category_id in categories_seen:
 		return
+		
+	JeopardyGlobals.questions_seen_this_game.append(category_id)
 	categories_seen.append(category_id)
 
 

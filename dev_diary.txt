@@ -23,3 +23,15 @@
 11/17/2026
     WE HAVE A CONTROL GUIDE NOW! Thats it! All I need to do is test!
     
+11/22/2026
+    I feel like i need to set some ground rules now for any future games I make, so here we go:
+        - ALWAYS USE CLASS NAMES! Holy moly this was a huge mistake. Unless its something extremely tiny that is never referenced outside of that one file
+        - Keep the state changes consistently placed. Like always put them at the end of the function or the top, unless theres a very good reason for not doing so
+        - Think about when pausing is allowed and not, and proactively change that instead of throwing it in at the end
+        - These mega classes are stupid as hell. in PIDC i am using a lot more signals, which lets me break up stuff into files with definitive if X happens, 
+            Y is emitted which is not only easier to understand, but a hell of a lot easier to make changes to
+        - Restart the computer after every coding session - my non paged pool literally balloons everytime I debug for more than a few hours
+        - Consider something else before making another game - youtube videos are fun! And more people enjoy them! Consider driving rivets through
+            your lower abdomen instead of game development! That would be less painful! 
+        - Look into a testing framework for the love of god
+        - literally always use typing. god doing a whole project with no typing was so stupid

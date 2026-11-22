@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://i8f3xidn3afd" path="res://fonts/cmunvt.ttf" id="2_r0qu2"]
 [ext_resource type="Script" uid="uid://icpqiak7voow" path="res://scripts/AutoFontSize.gd" id="3_ev865"]
 
-[node name="PlayerScoreBoard" type="Node2D"]
+[node name="PlayerScoreBoard" type="Node2D" groups=["Scoreboard"]]
 script = ExtResource("1_r0qu2")
 
 [node name="Player1Board" type="Sprite2D" parent="."]

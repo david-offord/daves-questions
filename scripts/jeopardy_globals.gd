@@ -3,17 +3,24 @@ extends Node
 #DEBUG STUFF
 var DEBUG_MODE = false # general state changes, skipping entire sections of game - only used for testing specific features
 var MINOR_DEBUG_MODE = false # smaller changes (i.e. number of questions to do before state change)
+var ALL_DEBUG_BUTTON = true # allows debug button input to be used
 var ACHIEVEMENT_DEBUGGING = false # shows a thing saying steam would have unlocked an achievement
 var FIRST_QUESTION_ALWAYS_DAILY_DOUBLE = false # stops shuffling of questions at start of round, and makes the first 1 (or 2) the daily double
 var DEBUG_ALL_QUESTIONS_DAILY_DOUBLE = false # turn all questions into daily doubles
 var DEBUG_END_SCENES_EARLY = true # causes scenes to transition quicker, even if there are still questions on the board
-var DEBUG_CHANGE_MONEY = true # sets base money on start
+var DEBUG_SKIP_DOUBLE_JEOPARDY = false # skips double jeopardy, if im testing something specific
+var DEBUG_CHANGE_MONEY = false # sets base money on start
 var DEBUG_DEMO_PURPOSES = false # allows this to be played with only the keyboard
 var SINGLEPLAYER_TESTING = false # allows one person to use the same controller for 2 plaers
 var VERBOSE_LOGGING = false # for testing, logs more detailed things about player controller input
 var EXTREMELY_VERBOSE_LOGGING = false # extremely verbose, literally logging every input made on a global level
 var CPU_TESTING = false # debugging for CPU developmentl
 var FORCE_QUESTION_TIME = 2.0 # time to make a question read time, if MINOR_DEBUG_MODE is enabled
+
+var IS_PAUSED = false
+var IS_PAUSABLE = false
+
+var questions_seen_this_game: Array = []
 
 #this is set and displayed if there was an issue loading the db file 
 var db_load_error_msg = ''
@@ -166,6 +173,11 @@ func get_categories(amount = 6):
 	#we have seen them all , so start over
 	else:
 		JeopardySaveData.categories_seen = []
+		#then refilter, specifically with the ones seen this game
+		category_options_temp = category_options.filter(func(x): return questions_seen_this_game.has(str(x['Id'])) == false)
+		#then do the same thing - again this probably sucks to just copy paste and above, and again i say piss off
+		if len(category_options_temp) >= amount:
+			category_options = category_options_temp
 
 	var retval = category_options.slice(0, amount).map(func(x): return {'CategoryName': x['CategoryName'], 'Id': x['Id']})
 	return retval
@@ -216,7 +228,7 @@ func get_final_jeopardy_question():
 func get_player_rankings():
 	var playermoney = []
 	for key in money_by_player:
-		playermoney.append({'player': key, 'value': money_by_player[key]})
+		playermoney.append({'player': key, 'value': money_by_player[key], 'is_cpu': (key in player_id_to_is_cpu and player_id_to_is_cpu[key])})
 
 	playermoney.sort_custom(player_sort_algo)
 
@@ -250,6 +262,7 @@ func get_player_id_by_guid(cont_id, is_keyboard = false):
 	return -1
 
 func start_new_game(reset_controllers = false):
+	questions_seen_this_game = []
 	if reset_controllers:
 		#reset the number of players and other dictionaries
 		number_of_players = 3

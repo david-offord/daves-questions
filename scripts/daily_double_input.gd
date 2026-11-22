@@ -62,7 +62,7 @@ func initialize(player_specific = -1, disallowed_players = [], is_in_double_jeop
 		if player_can_interact[pid] == false:
 			continue
 
-		if JeopardyGlobals.player_id_to_is_cpu[pid] or (JeopardyGlobals.CPU_TESTING):
+		if pid in JeopardyGlobals.player_id_to_is_cpu and JeopardyGlobals.player_id_to_is_cpu[pid] or (JeopardyGlobals.CPU_TESTING):
 			call_deferred("process_ai_logic", pid)
 
 
@@ -123,7 +123,24 @@ func _input(event: InputEvent) -> void:
 			max_out_bet(event_player_id)
 
 func max_out_bet(player_id: int):
-	set_value_based_on_ui(player_id, JeopardyGlobals.money_by_player[player_id])
+	var possible_max = JeopardyGlobals.money_by_player[player_id]
+
+	#i think this is more elegant than below
+	#they can overbet
+	if can_player_overbet:
+		#get possible over bet
+		var game_state_max = 2000 if double_jeopardy else 1000
+		#if less than overbet, thats the new max
+		if possible_max < game_state_max:
+			possible_max = game_state_max
+	#presumably final jeopardy
+	else:
+		#you shouldnt even be able to be in this if you have < 0 but just in case, handle that
+		if possible_max < 0:
+			possible_max = 0
+		
+
+	set_value_based_on_ui(player_id, possible_max)
 
 
 ##Confirm the value the player has set - emits the player id and the value
@@ -266,32 +283,79 @@ func process_ai_logic(player_id):
 	var bet_amt = 0
 	#if theyre down so catastrophic they only have 100, dont bet
 	if curr_money > 100:
-		match JeopardySaveData.default_comp_diff:
-			JeopardyGlobals.EASY_CPU_DIFFFICULTY:
-				#check if they go all in for the hell of it
-				if JeopardyGlobals.dice_roll(50):
-					bet_amt = curr_money
-				else:
-					#basically bet a random amount
-					bet_amt = randi_range(1, curr_money + 1)
+		var max_amt_in_game = 0
+		#get the highest score outside your own
+		for pid in JeopardyGlobals.get_player_rankings():
+			if pid['value'] > max_amt_in_game and pid['player'] != player_id:
+				max_amt_in_game = pid['value']
 
-			JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
-				#check if they go all in for the hell of it
-				if JeopardyGlobals.dice_roll(30):
-					bet_amt = curr_money
-				else:
-					#never in a million years will I understand why I need to do this
-					#this is not something to warn me over - this is very intentional godot
-					@warning_ignore("integer_division")
-					bet_amt = randi_range(curr_money / 2, curr_money + 1)
-
-			JeopardyGlobals.HARD_CPU_DIFFFICULTY:
-				pass
-		#if this is near max money (i.e. 57 and their max is 65)
-		if bet_amt + 10 >= curr_money:
-			bet_amt = curr_money
+		#no one is even in the running
+		if max_amt_in_game <= 0:
+			bet_amt = curr_money - 1
 		else:
-			bet_amt = floori(bet_amt)
+			match JeopardySaveData.default_comp_diff:
+				JeopardyGlobals.EASY_CPU_DIFFFICULTY:
+					#check if they go all in for the hell of it
+					if JeopardyGlobals.dice_roll(20):
+						bet_amt = curr_money
+					else:
+						#basically bet a random amount
+						bet_amt = randi_range(1, curr_money)
+
+				JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
+					#check if they go all in for the hell of it
+					if JeopardyGlobals.dice_roll(30):
+						bet_amt = curr_money
+					else:
+						#never in a million years will I understand why I need to do this
+						#this is not something to warn me over - this is very intentional godot
+						@warning_ignore("integer_division")
+						bet_amt = randi_range(curr_money / 2, curr_money)
+
+				JeopardyGlobals.HARD_CPU_DIFFFICULTY:
+					#its the final
+					if specific_player == -1:
+						#moved above
+						# var max_amt_in_game = 0
+						# #get the highest score outside your own
+						# for pid in JeopardyGlobals.get_player_rankings():
+						# 	if pid['value'] > max_amt_in_game and pid['player'] != player_id:
+						# 		max_amt_in_game = pid['value']
+						#basically nobody could ever catch up evenm on an all in
+						if max_amt_in_game * 2 < curr_money:
+							bet_amt = 0
+						#this cpu could never catch up
+						elif max_amt_in_game > curr_money * 2:
+							bet_amt = curr_money
+						#calculate what it would take to get to their double
+						else:
+							#ex 1200	2000
+							#would max temp 2400
+							var temp_max = max_amt_in_game * 2
+							#which would make this 401
+							temp_max = temp_max - curr_money + 1
+							#then set that to the bet amount
+							bet_amt = temp_max
+							#something fucked up and we need to go to a default
+							if bet_amt > curr_money:
+								bet_amt = curr_money
+
+
+					else:
+						#check if they go all in for the hell of it
+						if JeopardyGlobals.dice_roll(60):
+							bet_amt = curr_money
+						else:
+							#never in a million years will I understand why I need to do this
+							#this is not something to warn me over - this is very intentional godot
+							@warning_ignore("integer_division")
+							bet_amt = randi_range(curr_money / 2, curr_money)
+
+			#if this is near max money (i.e. 57 and their max is 65)
+			if bet_amt + 10 >= curr_money:
+				bet_amt = curr_money
+			else:
+				bet_amt = floori(bet_amt)
 	else:
 		if can_player_overbet:
 			if double_jeopardy:

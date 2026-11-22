@@ -30,7 +30,7 @@ func grab_focus():
 	$MainMenuButtons/StartGame.grab_focus()
 
 func _on_start_game_pressed() -> void:
-	SoundController.play_sound_effect(SoundController.SoundEffects.RightAnswer)
+	SoundController.play_sound_effect(SoundController.SoundEffects.MenuAccept)
 	started_game.emit()
 
 
@@ -55,7 +55,7 @@ func return_from_settings():
 	$MainMenuButtons.show()
 	call_deferred('focus_configure')
 	
-	SoundController.play_sound_effect(SoundController.SoundEffects.RightAnswer)
+	SoundController.play_sound_effect(SoundController.SoundEffects.MenuAccept)
 
 	#save the options
 	JeopardySaveData.save_to_file()

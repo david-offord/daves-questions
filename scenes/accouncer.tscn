@@ -12,6 +12,7 @@
 script = ExtResource("2_yg8ps")
 
 [node name="BaseAnnouncer" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_8fc2h")
 
 [node name="SecretAnnouncer" type="Sprite2D" parent="."]

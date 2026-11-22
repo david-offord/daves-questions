@@ -45,7 +45,7 @@ func _input(event: InputEvent) -> void:
 			#vibrate their cont and play a chime only if its not a keyboard
 			if is_keyboard_input == false:
 				Input.start_joy_vibration(event.device, 0.75, 0.75, .2)
-			SoundController.play_sound_effect(SoundController.SoundEffects.RightAnswer)
+			SoundController.play_sound_effect(SoundController.SoundEffects.MenuAccept)
 
 
 	#basically if player one is the one responding, and they can back out

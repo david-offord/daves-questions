@@ -107,7 +107,7 @@ func initialize_questions(question,
 		time_before_showing.connect('timeout', show_buzzer_button)
 	else:
 		time_before_showing.timeout.connect(daily_double_player_buzz_in)
-
+		#current_state = AnsweringState.WAITING_FOR_SOMEONE_TO_BUZZ
 
 	parent_announcer = announcer
 	#set up any cpu stuff
@@ -233,6 +233,10 @@ func _input(event: InputEvent) -> void:
 
 
 func answer_question(answer_id: int):
+	#if the time has already gone off
+	if current_state != AnsweringState.WAITING_FOR_ANSWER:
+		return
+
 	button_0_being_held = false; button_1_being_held = false; button_2_being_held = false
 	held_button_0_perc = 0; held_button_1_perc = 0; held_button_2_perc = 0;
 	
@@ -299,6 +303,9 @@ func answered_wrong(didnt_answer = false):
 	if onscreen_timer != null:
 		onscreen_timer.queue_free()
 
+	disabled_players.append(player_answering_id)
+	current_state = AnsweringState.WAITING_FOR_A
+
 	var original_scale: Vector2 = $WrongAnswerX.scale
 
 	#flash an X on the screen
@@ -361,10 +368,14 @@ func nobody_answered():
 	time_ran_out.emit()
 
 func daily_double_player_buzz_in():
+	current_state = AnsweringState.WAITING_FOR_SOMEONE_TO_BUZZ
 	player_buzzed_in(daily_double_player)
 
 
 func player_buzzed_in(device_int: int):
+	if current_state != AnsweringState.WAITING_FOR_SOMEONE_TO_BUZZ:
+		return
+
 	print('Controller %s buzzed in.' % [device_int])
 
 	#immediately kill the cpu things
@@ -410,7 +421,7 @@ func player_buzzed_in(device_int: int):
 	create_timer_for_picking_an_answer()
 
 	#do the CPU shit
-	if JeopardyGlobals.player_id_to_is_cpu[device_int]:
+	if device_int in JeopardyGlobals.player_id_to_is_cpu and JeopardyGlobals.player_id_to_is_cpu[device_int]:
 		cpu_answer_question_preprocessing(device_int)
 
 func show_final_jeopardy_answers():
@@ -520,7 +531,7 @@ func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 			continue
 
 		#if theyre a human, skip this
-		if JeopardyGlobals.player_id_to_is_cpu[comp] == false:
+		if comp in JeopardyGlobals.player_id_to_is_cpu and JeopardyGlobals.player_id_to_is_cpu[comp] == false:
 			continue
 
 		#it was already determined if they know it
@@ -560,7 +571,7 @@ func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 					max = -0.1
 			JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
 				min = .75
-				max = 4.0
+				max = 3.0
 				
 				#basically make em buzz in too early
 				if randi_range(1, 101) < 15 and is_daily_double == false:
@@ -568,7 +579,7 @@ func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 					max = -0.1
 			JeopardyGlobals.HARD_CPU_DIFFFICULTY:
 				min = .5
-				max = 3.0
+				max = 1.5
 				
 				if randi_range(1, 101) < 5 and is_daily_double == false:
 					min = -0.5
@@ -611,7 +622,7 @@ func cpu_answer_question_preprocessing(player_id: int):
 				correct = true
 
 		JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
-			if randi_range(1, 101) < 75:
+			if randi_range(1, 101) < 85:
 				correct = true
 
 		JeopardyGlobals.HARD_CPU_DIFFFICULTY:
@@ -661,7 +672,7 @@ func cpu_final_jeopardy_preprocess(time_to_buzzer: float):
 			continue
 
 		#if theyre a human, skip this
-		if JeopardyGlobals.player_id_to_is_cpu[comp] == false:
+		if comp in JeopardyGlobals.player_id_to_is_cpu and JeopardyGlobals.player_id_to_is_cpu[comp] == false:
 			continue
 
 		#check if they got it correct

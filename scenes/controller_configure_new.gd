@@ -102,6 +102,17 @@ func update_value_labels():
 		if menu_labels_by_position[l] is Label:
 			menu_labels_by_position[l].text = str(menu_value_by_position[l])
 
+	
+	if full_human_game:
+		menu_labels_by_position[1].get_parent().hide()
+		menu_labels_by_position[2].get_parent().hide()
+	elif show_cpu_options:
+		menu_labels_by_position[1].get_parent().show()
+		menu_labels_by_position[2].get_parent().show()
+	else:
+		menu_labels_by_position[1].get_parent().show()
+		menu_labels_by_position[2].get_parent().hide()
+
 
 func _input(event):
 	#bail if we are not even in the controller config screen
@@ -224,7 +235,7 @@ func _input(event):
 				#vibrate their cont and play a chime only if its not a keyboard
 				if is_keyboard_input == false:
 					Input.start_joy_vibration(event.device, 0.75, 0.75, .2)
-				SoundController.play_sound_effect(SoundController.SoundEffects.RightAnswer)
+				SoundController.play_sound_effect(SoundController.SoundEffects.MenuAccept)
 
 
 		#basically if player one is the one responding, and they can back out

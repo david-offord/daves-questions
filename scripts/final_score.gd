@@ -135,7 +135,7 @@ func begin_final_score_show():
 		elif JeopardyGlobals.money_by_player[ranking[0]['player']] == JeopardyGlobals.money_by_player[ranking[1]['player']]:
 			tie_status = '2way'
 
-	if JeopardyGlobals.number_of_players == 3:
+	if JeopardyGlobals.number_of_players == 2:
 		if JeopardyGlobals.money_by_player[ranking[0]['player']] == JeopardyGlobals.money_by_player[ranking[1]['player']]:
 			tie_status = 'all_players_tied'
 
@@ -168,7 +168,7 @@ func begin_final_score_show():
 	if nobody_could_play and tie_status != 'all_players_tied':
 		$FinaleAnnouncer.show_text_bubble("Well you know what they say, in the land of the fools, the person with %s is king." % JeopardyGlobals.format_scoreboard_currency(JeopardyGlobals.money_by_player[ranking[0]['player']]), 6)
 		await $FinaleAnnouncer.text_bubble_hidden
-		$FinaleAnnouncer.show_text_bubble("Congratulations to Player %d!" % [(ranking[0]['player'] + 1)], 3)
+		$FinaleAnnouncer.show_text_bubble("Congratulations to %s %d!" % ['CPU' if ranking[0]['is_cpu'] else 'Player', (ranking[0]['player'] + 1)], 3)
 	#everyone was negative, and all players were tied
 	elif nobody_could_play and tie_status == 'all_players_tied':
 		$FinaleAnnouncer.show_text_bubble('Great news, the %d of you are are equally terrible!' % JeopardyGlobals.number_of_players, 4)
@@ -179,21 +179,21 @@ func begin_final_score_show():
 		$FinaleAnnouncer.show_text_bubble("My goodness, it's a %d way tie! Great job everyone!" % JeopardyGlobals.number_of_players, 3)
 	#people had positive, and there was a 2 way tie
 	if nobody_could_play == false and tie_status == '2way':
-		$FinaleAnnouncer.show_text_bubble("Congratulations to Player %d and Player %d!" % [(ranking[0]['player'] + 1), (ranking[1]['player'] + 1)], 3)
+		$FinaleAnnouncer.show_text_bubble("Congratulations to %s %d and %s %d!" % ['CPU' if ranking[0]['is_cpu'] else 'Player', (ranking[0]['player'] + 1), 'CPU' if ranking[1]['is_cpu'] else 'Player', (ranking[1]['player'] + 1)], 3)
 	#people had positive, and there was no tie
 	if nobody_could_play == false and tie_status == 'none':
-		$FinaleAnnouncer.show_text_bubble("Congratulations to Player %d!" % [(ranking[0]['player'] + 1)], 3)
+		$FinaleAnnouncer.show_text_bubble("Congratulations to %s %d!" % ['CPU' if ranking[0]['is_cpu'] else 'Player', (ranking[0]['player'] + 1)], 3)
 	
 	#if everyone was negative, give em the achievement
 	if nobody_could_play:
 		SteamController.set_achievement_achieved(SteamController.Achievements.go_back_to_school)
 
-	#if there was no tie, the winner was negative at one point in the game, and their current money is > 0, give em the achievement
-	if tie_status == 'none' and JeopardyGlobals.player_to_ever_negative[ranking[0]['player']] == true and JeopardyGlobals.money_by_player[ranking[0]['player']] > 0:
+	#if there was no tie, the winner was negative at one point in the game, and their current money is > 0, and they are not a cpu give em the achievement
+	if tie_status == 'none' and JeopardyGlobals.player_to_ever_negative[ranking[0]['player']] == true and JeopardyGlobals.money_by_player[ranking[0]['player']] > 0 and ranking[0]['is_cpu'] == false:
 		SteamController.set_achievement_achieved(SteamController.Achievements.started_from_the_bottom)
 
 	#they completed a game with 3 people, give em the achievement
-	if JeopardyGlobals.number_of_players == 3:
+	if JeopardyGlobals.number_of_players == 3 and JeopardyGlobals.cpu_game == false:
 		SteamController.set_achievement_achieved(SteamController.Achievements.the_more_the_merrier)
 
 	#add to the number of games played
