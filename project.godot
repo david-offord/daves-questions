@@ -11,8 +11,11 @@ config_version=5
 [application]
 
 config/name="Dave's Questions"
+config/version="1.1"
 run/main_scene="uid://dxmn22cv3rlfl"
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="uid://cqwi6gredmupi"
 config/icon="uid://dsrpa2hjqppjf"
 config/windows_native_icon="res://icons/icon.ico"
 
