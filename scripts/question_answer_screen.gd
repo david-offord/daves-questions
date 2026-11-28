@@ -195,13 +195,13 @@ func _input(event: InputEvent) -> void:
 	if event_player_id == -1:
 		return
 
-	if current_state == AnsweringState.WAITING_FOR_A and event_player_id not in disabled_players:
+	if current_state == AnsweringState.WAITING_FOR_A and event_player_id not in disabled_players and daily_double_player == -1 and is_in_final_jeopardy == false:
 		if event.is_action_pressed("buzz_in"):
 			temporarily_disable_player(event_player_id)
 			return
 			
 	#whoever buzzs in first
-	if current_state == AnsweringState.WAITING_FOR_SOMEONE_TO_BUZZ:
+	if current_state == AnsweringState.WAITING_FOR_SOMEONE_TO_BUZZ and daily_double_player == -1 and is_in_final_jeopardy == false:
 		if event.is_action_pressed("buzz_in") and (event_player_id not in disabled_players):
 			player_buzzed_in(event_player_id)
 	
@@ -539,14 +539,15 @@ func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 			cpus_to_know_answer[comp] = true
 			match JeopardySaveData.default_comp_diff:
 				JeopardyGlobals.EASY_CPU_DIFFFICULTY:
-					if randi_range(1, 100) < 30:
+					if randi_range(1, 100) < 25:
 						cpus_to_know_answer[comp] = false
 				JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
-					if randi_range(1, 100) < 20:
+					if randi_range(1, 100) < 15:
 						cpus_to_know_answer[comp] = false
 				JeopardyGlobals.HARD_CPU_DIFFFICULTY:
-					if randi_range(1, 100) < 10:
+					if randi_range(1, 100) < 5:
 						cpus_to_know_answer[comp] = false
+				#therefore if cheater, they always know
 		
 		#basically if they don't want to buzz in, but its a daily double, theyre stuck
 		if cpus_to_know_answer[comp] == false and is_daily_double == false:
@@ -558,35 +559,42 @@ func cpu_buzz_in_pre_processing(time_to_buzzer: float):
 
 
 		#choose a time range
-		var min := 1.0
-		var max := 5.0
+		var mintimer := 1.0
+		var maxtimer := 5.0
 		match JeopardySaveData.default_comp_diff:
 			JeopardyGlobals.EASY_CPU_DIFFFICULTY:
-				min = 1
-				max = 6
+				mintimer = 2
+				maxtimer = 4
 
 				#basically make em buzz in too early
 				if randi_range(1, 101) < 30 and is_daily_double == false:
-					min = -0.5
-					max = -0.1
+					mintimer = -0.5
+					maxtimer = -0.1
+
 			JeopardyGlobals.MEDIUM_CPU_DIFFFICULTY:
-				min = .75
-				max = 3.0
+				mintimer = 1
+				maxtimer = 3
 				
 				#basically make em buzz in too early
 				if randi_range(1, 101) < 15 and is_daily_double == false:
-					min = -0.5
-					max = -0.1
+					mintimer = -0.5
+					maxtimer = -0.1
+
 			JeopardyGlobals.HARD_CPU_DIFFFICULTY:
-				min = .5
-				max = 1.5
+				mintimer = 0.3
+				maxtimer = 1.5
 				
 				if randi_range(1, 101) < 5 and is_daily_double == false:
-					min = -0.5
-					max = -0.1
+					mintimer = -0.5
+					maxtimer = -0.1
+
+			JeopardyGlobals.CHEATER_CPU_DIFFICULTY:
+				mintimer = 0.2
+				maxtimer = 0.6
+				
 				
 		#make a timer
-		var time_to_wait := time_to_buzzer + randf_range(min, max)
+		var time_to_wait := time_to_buzzer + randf_range(mintimer, maxtimer)
 		print_debug('Player %d waiting %d seconds.' % [comp + 1, time_to_wait])
 		var c_timer = get_tree().create_timer(time_to_wait)
 		c_timer.timeout.connect(cpu_buzz_in.bind(comp))
@@ -628,6 +636,10 @@ func cpu_answer_question_preprocessing(player_id: int):
 		JeopardyGlobals.HARD_CPU_DIFFFICULTY:
 			if randi_range(1, 101) < 95:
 				correct = true
+
+		#they always know the answer
+		JeopardyGlobals.CHEATER_CPU_DIFFICULTY:
+			correct = true
 
 	#i.e. 2 people were already wrong
 	if len(guessed_answers) == 2:
@@ -688,6 +700,10 @@ func cpu_final_jeopardy_preprocess(time_to_buzzer: float):
 			JeopardyGlobals.HARD_CPU_DIFFFICULTY:
 				if randi_range(1, 101) < 95:
 					correct = true
+
+			#they always get it right
+			JeopardyGlobals.CHEATER_CPU_DIFFICULTY:
+				correct = true
 
 
 		#now do the actual thing for if they got it right or not

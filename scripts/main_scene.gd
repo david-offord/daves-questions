@@ -123,11 +123,11 @@ func go_to_final_score(everyone_sub_zero = false):
 func start_new_game():
 	if current_game_scene != null:
 		current_game_scene.queue_free()
-	print_debug('Starting a new game was requested by the button on the final score screen.');
+	print_debug('Starting a new game was requested by the button on the final score screen or the pause menu.');
 	begin_actual_game()
 
 func return_to_title():
-	print_debug('Return to title initiated by final score screen.');
+	print_debug('Return to title initiated by final score screen or the pause menu.');
 	show_title_screen()
 
 ##called by the final scene
@@ -150,9 +150,9 @@ func _input(event: InputEvent) -> void:
 	#counter to the name, i actually made this input. idk if it makes sense to prepend ui_ when I made it. Whatever
 	if event.is_action_pressed("debug_button") and JeopardyGlobals.ALL_DEBUG_BUTTON:
 		print_debug("Debug button was pressed")
-		JeopardyGlobals.money_by_player[0] = -9000
-		JeopardyGlobals.money_by_player[1] = -10000
-		JeopardyGlobals.money_by_player[2] = 1000
+		JeopardyGlobals.money_by_player[0] = 2000
+		JeopardyGlobals.money_by_player[1] = 2500
+		#JeopardyGlobals.money_by_player[2] = 1000
 		var temp = get_tree().get_nodes_in_group("Scoreboard")
 		if len(temp) > 0:
 			temp[0].update_score(69)

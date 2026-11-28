@@ -3,11 +3,11 @@ extends Node
 #DEBUG STUFF
 var DEBUG_MODE = false # general state changes, skipping entire sections of game - only used for testing specific features
 var MINOR_DEBUG_MODE = false # smaller changes (i.e. number of questions to do before state change)
-var ALL_DEBUG_BUTTON = true # allows debug button input to be used
+var ALL_DEBUG_BUTTON = false # allows debug button input to be used
 var ACHIEVEMENT_DEBUGGING = false # shows a thing saying steam would have unlocked an achievement
 var FIRST_QUESTION_ALWAYS_DAILY_DOUBLE = false # stops shuffling of questions at start of round, and makes the first 1 (or 2) the daily double
 var DEBUG_ALL_QUESTIONS_DAILY_DOUBLE = false # turn all questions into daily doubles
-var DEBUG_END_SCENES_EARLY = true # causes scenes to transition quicker, even if there are still questions on the board
+var DEBUG_END_SCENES_EARLY = false # causes scenes to transition quicker, even if there are still questions on the board
 var DEBUG_SKIP_DOUBLE_JEOPARDY = false # skips double jeopardy, if im testing something specific
 var DEBUG_CHANGE_MONEY = false # sets base money on start
 var DEBUG_DEMO_PURPOSES = false # allows this to be played with only the keyboard
@@ -42,6 +42,7 @@ var CURRENT_GAME_STATE = GameState.GAMEBOARD
 var EASY_CPU_DIFFFICULTY = "Easy"
 var MEDIUM_CPU_DIFFFICULTY = "Medium"
 var HARD_CPU_DIFFFICULTY = "Hard"
+var CHEATER_CPU_DIFFICULTY = 'Cheater'
 
 #PACKED SCENES USED EVERYWHERE
 var TIMER_SCENE = preload("res://scenes/on_screen_timer_new.tscn")
@@ -118,7 +119,7 @@ func reload_db():
 		#if it does not, then load the default
 		else:
 			printerr('DB File %s could not be found/loaded. Moving on...' % JeopardySaveData.jeopardy_set_custom_location.replace('user:/', OS.get_user_data_dir()));
-			db_load_error_msg = 'Just so you know, I tried to load the custom db file you specified in the settings, but I failed to do so. You should look in the logs.'
+			db_load_error_msg = 'Just so you know, I tried to load the custom db file you specified in the settings, but I failed to do so. You should look in the logs, or maybe harass the developer.'
 			questions_db.path = 'res://question_set_dbs/data.db'
 			JeopardySaveData.jeopardy_set = 'MDFD Questions'
 			JeopardySaveData.save_to_file()

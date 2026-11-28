@@ -351,6 +351,10 @@ func process_ai_logic(player_id):
 							@warning_ignore("integer_division")
 							bet_amt = randi_range(curr_money / 2, curr_money)
 
+				JeopardyGlobals.CHEATER_CPU_DIFFICULTY:
+					bet_amt = curr_money
+
+
 			#if this is near max money (i.e. 57 and their max is 65)
 			if bet_amt + 10 >= curr_money:
 				bet_amt = curr_money

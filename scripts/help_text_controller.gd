@@ -15,7 +15,7 @@ func _input(event: InputEvent) -> void:
 	if shown == false:
 		return
 
-	if event.is_action_pressed("back_exit_return") and currently_hiding == false:
+	if (event.is_action_pressed("back_exit_return") or event.is_action_pressed("select")) and currently_hiding == false:
 		hide_help()
 
 func show_help():

@@ -874,16 +874,21 @@ func cpu_turn_to_pick_question():
 
 	#move the cursor around
 	movements.shuffle()
+	movements.append("wait")
 	for move in movements:
 		while JeopardyGlobals.IS_PAUSED:
 			await get_tree().create_timer(.1).timeout
 
-
-		move_selection(move)
+		if move == "wait":
+			await get_tree().create_timer(.6).timeout
+		else:
+			move_selection(move)
+			
 		await get_tree().create_timer(.3).timeout
 
 	#select the question
 	
 	while JeopardyGlobals.IS_PAUSED:
 		await get_tree().create_timer(.1).timeout
+
 	selected_question()

@@ -53,7 +53,7 @@ var menu_value_by_position = {
 var menu_possible_values_by_position = {
 	HUMAN_PLAYER_POSITION: [1, 2, 3, ],
 	CPU_PLAYER_POSITION: [0, 1, 2, ],
-	CPU_DIFFICULTY_POSITION: ['Easy', 'Medium', 'Hard']
+	CPU_DIFFICULTY_POSITION: ['Easy', 'Medium', 'Hard', 'Cheater']
 }
 
 @onready var menu_labels_by_position: Dictionary[int, Control] = {
